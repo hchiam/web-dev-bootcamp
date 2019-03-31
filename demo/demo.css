@@ -12,8 +12,16 @@ p {
 	padding-bottom: 20px;
 }
 
-img {
+.image-container {
 	width: 30%;
+	overflow: hidden;
 	float: left;
 	margin: 1.66%;
+	border-radius: 20px 0 0 0;
+}
+
+img {
+	display:block;
+	margin: -10% -30% -90% -10%;
+	width:177.777%;
 }
