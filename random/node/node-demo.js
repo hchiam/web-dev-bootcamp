@@ -1,4 +1,4 @@
-let fake = require('faker');
+let fake = require('faker'); // could use this to test filling a UI
 
 console.log(
 `_________________________
