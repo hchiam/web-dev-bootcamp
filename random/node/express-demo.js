@@ -1,6 +1,10 @@
 let express = require('express');
 let app = express();
 
+app.listen(3000, 'localhost', () => {
+    console.log('Server started.');
+});
+
 app.get('/', (req, res) => {
     res.send('hi!');
 });
@@ -11,8 +15,4 @@ app.get('/hi', (req, res) => {
 
 app.get('/bye', (req, res) => {
     res.send('Goodbye!');
-});
-
-app.listen(3000, 'localhost', () => {
-    console.log('Server started.');
 });
