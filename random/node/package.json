@@ -1,0 +1,16 @@
+{
+  "name": "express-demo",
+  "version": "1.0.0",
+  "description": "Express.js demo",
+  "main": "express-demo.js",
+  "dependencies": {
+    "express": "^4.17.0",
+    "faker": "^4.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Howard Chiam",
+  "license": "MIT"
+}
