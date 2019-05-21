@@ -1,6 +1,8 @@
 let express = require('express');
 let app = express();
 
+app.set('view engine', 'ejs');
+
 app.listen(3000, 'localhost', () => {
     console.log('Server started.');
 });
@@ -15,6 +17,11 @@ app.get('/hi', (req, res) => {
 
 app.get('/bye', (req, res) => {
     res.send('Goodbye!');
+});
+
+app.get('/page', (req, res) => {
+    // test.ejs has to be inside views folder
+    res.render('test'); // (MUST type 'test', NOT '/views/test.ejs')
 });
 
 // '/r/:subredditName' covers only '/r/.../' but NOT just anything like '/r/.../.../.../etc...'

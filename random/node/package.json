@@ -4,6 +4,7 @@
   "description": "Express.js demo",
   "main": "express-demo.js",
   "dependencies": {
+    "ejs": "^2.6.1",
     "express": "^4.17.0",
     "faker": "^4.1.0"
   },
