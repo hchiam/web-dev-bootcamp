@@ -16,3 +16,8 @@ app.get('/hi', (req, res) => {
 app.get('/bye', (req, res) => {
     res.send('Goodbye!');
 });
+
+// any other URL beside the ones above
+app.get('*', (req, res) => {
+    res.send('Page could not be found.');
+});
