@@ -1,3 +1,4 @@
+<% include partials/header %>
 <p>Welcome to the <strong><%= '"' + subreddit + '"' %></strong> subreddit!</p>
 
 <ul>
@@ -11,3 +12,4 @@
         <li><strong>Title:</strong> <%= post.title %> <strong>Author: </strong><%= post.author %></li>
     <% }) %>
 </ol>
+<% include partials/footer %>

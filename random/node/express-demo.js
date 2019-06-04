@@ -1,6 +1,8 @@
 let express = require('express');
 let app = express();
 
+app.use(express.static(__dirname + '/public')); // so the public folder is used
+
 let fake = require('faker');
 
 app.set('view engine', 'ejs');
@@ -10,7 +12,8 @@ app.listen(3000, 'localhost', () => {
 });
 
 app.get('/', (req, res) => {
-    res.send('hi!');
+    res.render('welcome'); // (MUST type 'welcome', NOT '/views/welcome.ejs')
+    // res.send('hi!');
 });
 
 app.get('/hi', (req, res) => {
