@@ -1,7 +1,7 @@
 let express = require('express');
 let app = express();
 
-app.use(express.static(__dirname + '/public')); // so the public folder is used
+app.use(express.static(__dirname + '/public')); // so the public folder is used (e.g., so can serve app.css)
 
 let fake = require('faker');
 
