@@ -1,6 +1,8 @@
 let express = require('express');
 let app = express();
 
+let fake = require('faker');
+
 app.set('view engine', 'ejs');
 
 app.listen(3000, 'localhost', () => {
@@ -27,7 +29,17 @@ app.get('/page', (req, res) => {
 // '/r/:subredditName' covers only '/r/.../' but NOT just anything like '/r/.../.../.../etc...'
 app.get('/r/:subredditName', (req, res) => {
     let subreddit = req.params.subredditName.toUpperCase();
-    res.send(`Welcome to the ${subreddit} subreddit!`);
+    let fakeInfoArray = [];
+    for (let i=0; i<10; i++) {
+        fakeInfoArray.push(`${i+1}) ${fake.commerce.productName()} - $${fake.commerce.price()}`);
+    }
+    let posts = [
+        {title:'Post 1', author:'apple'},
+        {title:'Post Beta', author:'banana'},
+        {title:'Post Charlie', author:'coconut'}
+    ];
+    // res.send(`Welcome to the ${subreddit} subreddit!`);
+    res.render('reddit', {subreddit: subreddit, fakeInfoArray: fakeInfoArray, posts: posts}); // (MUST type 'reddit', NOT '/views/reddit.ejs')
 });
 
 app.get('/r/:subredditName/comments/:id/:title', (req, res) => {

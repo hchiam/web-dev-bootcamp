@@ -1,0 +1,13 @@
+<p>Welcome to the <strong><%= '"' + subreddit + '"' %></strong> subreddit!</p>
+
+<ul>
+    <% for (let fakeInfo of fakeInfoArray) { %>
+        <li><%= fakeInfo %></li>
+    <% } %>
+</ul>
+
+<ol>
+    <% posts.forEach(function(post) { %>
+        <li><strong>Title:</strong> <%= post.title %> <strong>Author: </strong><%= post.author %></li>
+    <% }) %>
+</ol>
