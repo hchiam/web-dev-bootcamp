@@ -6,22 +6,37 @@ Just one of the things I'm learning: https://github.com/hchiam/learning
 ## Node.js and Express.js demos:
 
 Some setup I did (you don't have to do this to use this repo):
-```js
+```bash
 npm init
 npm install express --save # <- --save makes the install also save to package.json
 ```
 
 To use the Node.js/Express.js demos:
-```js
+```bash
 cd web-dev-bootcamp/random/node
 npm install
 node node-demo.js # or node express-demo.js
 ```
 
 To avoid having to `Ctrl+C` and `node <filename>.js` each time, you can automate restart with `nodemon`:
-```js
+```bash
 npm i -g nodemon # i = install; -g = globally
 npm install --save-dev nodemon # <- this saves into dev dependencies
 ```
 
 So instead of running with `node express-demo.js` and manually restarting, you can have `nodemon` restart the server automatically for you after you execute `nodemon express-demo.js` just once.
+
+## body-parser for express
+
+(In case it's currently not already included in express:)
+
+```bash
+npm install body-parser --save # within the folder that has node_modules INSIDE of it
+```
+
+then
+
+```js
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended:true}));
+```
