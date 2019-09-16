@@ -24,7 +24,11 @@ npm i -g nodemon # i = install; -g = globally
 npm install --save-dev nodemon # <- this saves into dev dependencies
 ```
 
-So instead of running with `node express-demo.js` and manually restarting, you can have `nodemon` restart the server automatically for you after you execute `nodemon express-demo.js` just once.
+So instead of running with `node express-demo.js` and manually restarting, you can have `nodemon` restart the server automatically for you after you execute `nodemon express-demo.js` just once:
+
+```bash
+nodemon node-demo.js # or nodemon express-demo.js
+```
 
 ## body-parser for express
 
