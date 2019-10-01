@@ -4,6 +4,7 @@
 * campgrounds page (name + image)
 * header and footer partials
 * bootstrap
+* POST route for form to create campground
 
 ## Steps
 
@@ -31,3 +32,9 @@ nodemon index.js # to auto-run upon saving app.js
 ```
 
 Now create and edit files as needed.
+
+Also, to install body-parser:
+
+```bash
+npm install body-parser --save
+```
