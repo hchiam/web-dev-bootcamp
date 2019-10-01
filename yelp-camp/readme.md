@@ -5,6 +5,7 @@
 * header and footer partials
 * bootstrap
 * POST route for form to create campground
+* navbar
 
 ## Steps
 
