@@ -2,6 +2,8 @@
 
 * landing page
 * campgrounds page (name + image)
+* header and footer partials
+* bootstrap
 
 ## Steps
 
@@ -27,3 +29,5 @@ or
 ```bash
 nodemon index.js # to auto-run upon saving app.js
 ```
+
+Now create and edit files as needed.
