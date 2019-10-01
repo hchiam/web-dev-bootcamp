@@ -39,3 +39,11 @@ Also, to install body-parser:
 ```bash
 npm install body-parser --save
 ```
+
+## MongoDB notes
+
+[old](https://gist.github.com/nax3t/9d22f0f627d144da9f21b43f90b3680f)
+
+[new](https://gist.github.com/nax3t/c781791851bac04e399d2275405cead5)
+
+https://www.youtube.com/watch?v=b089GmAvUyQ&feature=youtu.be
