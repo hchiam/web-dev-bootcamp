@@ -115,3 +115,77 @@ Example: `db.dogs.update({name:"Rusty"}, { $set: {name:"Tyrone", isCute:true} })
 Example: `db.dogs.remove({name:"Lucy"})`
 
 Example: `db.dogs.remove({breed:"Mutt"}).limit(1)` will only remove 1 match
+
+## Mongoose
+
+Makes it easier to use MongoDB inside Node/Express code.
+
+(BTW: To fix Mongoose deprecation warnings: <https://mongoosejs.com/docs/deprecations.html>)
+
+```bash
+npm install mongoose --save
+```
+
+And then in JS, you can do this:
+
+```js
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/yelp_camp'); // find yelp_camp DB (and create it if it doesn't exist)
+
+// schema: adds some structure to the NoSQL flexibility:
+const campgroundSchema = new mongoose.Schema({
+    name: String,
+    image: String,
+    price: Number,
+});
+
+// model:
+const Campground = mongoose.model('Campground', campgroundSchema);
+// btw 'Campground' parameter auto-magically creates collection with the plural lowercase name "campgrounds"
+
+// // create data to be used in a mongoose command later
+// const newCampground = new Campground({
+//     name: 'Camp Pining Hearts',
+//     image: 'https://upload.wikimedia.org/wikipedia/commons/f/fc/Car_Camping.jpg',
+//     price: '1000',
+// });
+//
+// // insert data
+// newCampground.save((err, itemAddedToDB)=> { // simply newCampground.save(); may not work or may be slow
+//     if (err) {
+//         console.log('Something went wrong');
+//     } else {
+//         console.log('Added campground to DB');
+//         console.log(itemAddedToDB);
+//     }
+// });
+
+// AND FINALLY DO THE MONGOOSE COMMANDS HERE:
+
+// create with model
+Campground.create({
+    name: 'Camp Pining Hearts',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/f/fc/Car_Camping.jpg',
+    price: '1000',
+}, (err, newCampground)=> {
+    if (err) {
+        console.log('Something went wrong');
+        console.log(err);
+    } else {
+        console.log('The campground that got added/created:');
+        console.log(newCampground);
+    }
+});
+
+// find with model
+Campground.find({}, (err, results)=> {
+    if (err) {
+        console.log('Something went wrong');
+        console.log(err);
+    } else {
+        console.log('All the campgrounds:');
+        console.log(results);
+    }
+});
+
+```
