@@ -31,9 +31,10 @@ const campgroundSchema = new mongoose.Schema({
 // model
 const Campground = mongoose.model('Campground', campgroundSchema);
 
-// app.listen(process.env.PORT, process.env.IP, ()=>{
-app.listen(8000, ()=>{
-    console.log('The YelpCamp server has started!');
+const port = process.env.PORT || 8000;
+const ip = process.env.IP;
+app.listen(port, ip, ()=>{
+    console.log(`The YelpCamp server has started${port ? ' on port ' + port : ''}!`);
 });
 
 app.get('/', (req, res)=>{
