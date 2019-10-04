@@ -44,3 +44,17 @@ then
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended:true}));
 ```
+
+## REST-ful Routes Notes
+
+REST-ful conventions:
+
+| name      | url           | verb        | description
+| ----------|---------------|-------------|------------------------------
+| INDEX     | /dogs         | GET   | Shows a list of all dogs
+| NEW       | /dogs/new     | GET   | Shows a form to make a new dog
+| CREATE    | /dogs         | POST  | Add new dog to DB
+| SHOW      | /dogs/:id     | GET   | Shows info page about one dog
+| EDIT      | /dogs/:id/edit| GET   | Shows edit form for a dog
+| UPDATE    | /dogs/:id     | PUT   | Update a dog, then redirect
+| DESTROY   | /dogs/:id     | DELETE| Delete a dog, then redirect
