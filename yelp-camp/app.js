@@ -18,7 +18,7 @@ const mongoose = require('mongoose');
 //     {name:`Mountain Goat's Rest`, image:'https://upload.wikimedia.org/wikipedia/commons/b/b5/Campsite-Oludeniz.JPG'},
 // ];
 
-mongoose.connect('mongodb://localhost/yelp_camp'); // find yelp_camp DB (and create it if it doesn't exist)
+mongoose.connect('mongodb://localhost/yelp_camp', {useNewUrlParser: true, useUnifiedTopology: true}); // find yelp_camp DB (and create it if it doesn't exist)
 app.use(bodyParser.urlencoded({encoded:true, extended:true}));
 app.set('view engine', 'ejs');
 
