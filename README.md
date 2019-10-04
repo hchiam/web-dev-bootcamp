@@ -47,7 +47,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 ## RESTful Routes Notes
 
-**Key words for me:** GET, POST, PUT, DELETE **=** show, new/create, edit/update, destroy.
+**Key words for me:** GET, POST, PUT, DELETE **=** show, new/create, edit/update, destroy **=** R, C, U, D.
 
 **RESTful conventions:**
 
