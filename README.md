@@ -51,10 +51,10 @@ REST-ful conventions:
 
 | name      | url           | verb        | description
 | ----------|---------------|-------------|------------------------------
-| INDEX     | /dogs         | GET   | Shows a list of all dogs
-| NEW       | /dogs/new     | GET   | Shows a form to make a new dog
-| CREATE    | /dogs         | POST  | Add new dog to DB
-| SHOW      | /dogs/:id     | GET   | Shows info page about one dog
-| EDIT      | /dogs/:id/edit| GET   | Shows edit form for a dog
-| UPDATE    | /dogs/:id     | PUT   | Update a dog, then redirect
-| DESTROY   | /dogs/:id     | DELETE| Delete a dog, then redirect
+| INDEX     | /dogs         | GET   | Show all.
+| NEW       | /dogs/new     | GET!!!| Show form for CREATE.
+| CREATE    | /dogs         | POST  | Actually create DB entry.
+| SHOW      | /dogs/:id     | GET   | Show one.
+| EDIT      | /dogs/:id/edit| GET!!!| Show form for UPDATE.
+| UPDATE    | /dogs/:id     | PUT   | Actually update, then redirect.
+| DESTROY   | /dogs/:id     | DELETE| Delete a dog, then redirect.
