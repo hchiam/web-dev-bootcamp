@@ -62,8 +62,10 @@ app.post('/campgrounds', (req, res)=>{
     // add campground to DB
     Campground.create({name, image}, (err, newlyCreated)=> {
         if (err) {
+            console.log('Error:');
             console.log(err);
         } else {
+            console.log('Added campground:');
             console.log(newlyCreated);
             // redirect back to campgrounds page
             res.redirect('/campgrounds');
