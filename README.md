@@ -52,9 +52,9 @@ REST-ful conventions:
 | name      | url           | verb        | description
 | ----------|---------------|-------------|------------------------------
 | INDEX     | /dogs         | GET   | Show all.
-| SHOW      | /dogs/:id     | GET   | Show one.
-| DESTROY   | /dogs/:id     | DELETE| Delete a dog, then redirect.
 | NEW       | /dogs/new     | GET!!!| Show form for CREATE.
 | CREATE    | /dogs         | POST  | Actually create DB entry.
+| SHOW      | /dogs/:id     | GET   | Show one.
 | EDIT      | /dogs/:id/edit| GET!!!| Show form for UPDATE.
 | UPDATE    | /dogs/:id     | PUT   | Actually update, then redirect.
+| DESTROY   | /dogs/:id     | DELETE| Delete a dog, then redirect.
