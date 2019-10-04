@@ -116,6 +116,8 @@ Example: `db.dogs.remove({name:"Lucy"})`
 
 Example: `db.dogs.remove({breed:"Mutt"}).limit(1)` will only remove 1 match
 
+***Non***-Example: *DO NOT USE IN REAL PRODUCTION!* `db.dogs.drop()` deletes all data in `dogs` collection.
+
 ## Mongoose
 
 Makes it easier to use MongoDB inside Node/Express code.

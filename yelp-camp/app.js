@@ -26,6 +26,7 @@ app.set('view engine', 'ejs');
 const campgroundSchema = new mongoose.Schema({
     name: String,
     image: String,
+    description: String,
 });
 
 // model
@@ -41,26 +42,43 @@ app.get('/', (req, res)=>{
     res.render('landing'); // views/landing.ejs
 });
 
+// INDEX
 app.get('/campgrounds', (req, res)=>{
     Campground.find({}, (err, campgrounds)=>{
         if (err) {
             console.log(err);
         } else {
-            res.render('campgrounds', {campgrounds}); // views/campgrounds.ejs
+            res.render('index', {campgrounds}); // views/index.ejs
         }
     });
 });
 
+// NEW (still get because get page)
 app.get('/campgrounds/new', (req, res)=>{
     res.render('new'); // views/new.ejs
 });
 
+// SHOW (make sure this pattern match is listed AFTER /campgrounds/new)
+app.get('/campgrounds/:id', (req, res)=>{
+    // req.params.id comes from user
+    // use Mongoose to guarantee unique ID instead of req.params.id:
+    Campground.findById(req.params.id, (err, campground)=>{
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('show', {campground}); // views/show.ejs
+        }
+    });
+});
+
+// CREATE
 app.post('/campgrounds', (req, res)=>{
     // get data from form
     const name = req.body.name;
     const image = req.body.image;
+    const description = req.body.description;
     // add campground to DB
-    Campground.create({name, image}, (err, newlyCreated)=> {
+    Campground.create({name, image, description}, (err, newlyCreated)=> {
         if (err) {
             console.log('Error:');
             console.log(err);
