@@ -45,15 +45,17 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended:true}));
 ```
 
-## REST-ful Routes Notes
+## RESTful Routes Notes
 
-REST-ful conventions:
+**Key words for me:** GET, POST, PUT, DELETE **=** show, new/create, edit/update, destroy.
+
+**RESTful conventions:**
 
 | name      | url           | verb        | description
 | ----------|---------------|-------------|------------------------------
 | INDEX     | /dogs         | GET   | Show all.
 | NEW       | /dogs/new     | GET!!!| Show form for CREATE.
-| CREATE    | /dogs         | POST  | Actually create DB entry.
+| CREATE    | /dogs         | POST  | Actually create DB entry, then redirect.
 | SHOW      | /dogs/:id     | GET   | Show one.
 | EDIT      | /dogs/:id/edit| GET!!!| Show form for UPDATE.
 | UPDATE    | /dogs/:id     | PUT   | Actually update, then redirect.
