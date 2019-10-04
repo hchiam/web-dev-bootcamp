@@ -48,7 +48,7 @@ MongoDB = NoSQL = more flexible, but not necessarily better than SQL in all situ
 
 [new](https://gist.github.com/nax3t/c781791851bac04e399d2275405cead5)
 
-https://www.youtube.com/watch?v=b089GmAvUyQ&feature=youtu.be
+<https://www.youtube.com/watch?v=b089GmAvUyQ&feature=youtu.be>
 
 Finally, to get the database running:
 
