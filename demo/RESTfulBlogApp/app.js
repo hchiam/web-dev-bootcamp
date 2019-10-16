@@ -1,5 +1,10 @@
 // npm install express mongoose body-parser ejs method-override --save
 
+/** 
+ * in a bigger project worked on by multiple developers,
+ * this would be broken up into several files
+*/
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
