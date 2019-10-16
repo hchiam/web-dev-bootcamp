@@ -1,8 +1,11 @@
-// npm install express mongoose body-parser ejs --save
+// npm install express mongoose body-parser ejs method-override --save
 
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
+// need to use Method-Override to let html forms use PUT
+// with: action="...?_method=PUT" method="POST">
 
 app = express();
 
@@ -12,6 +15,7 @@ mongoose.connect('mongodb://localhost/restful_blog_app', { useNewUrlParser: true
 app.set('view engine', 'ejs'); // so filename instead of filename.ejs
 app.use(express.static('public')); // get stylesheet
 app.use(bodyParser.urlencoded({ encoded:true, extended:true })); // body-parser
+app.use(methodOverride('_method')); // to enable HTML form to use PUT
 
 // mongoose/model config
 
@@ -73,6 +77,33 @@ app.get('/blogs/:id', function (req, res) {
       res.redirect('/blogs');
     } else {
       res.render('show', {blog: foundBlog});
+    }
+  });
+});
+
+// edit route
+app.get('/blogs/:id/edit', function(req, res) {
+  Blog.findById(req.params.id, function (err, foundBlog) {
+    if (err) {
+      res.redirect('/blogs');
+    } else {
+      res.render('edit', {blog: foundBlog});
+    }
+  });
+});
+
+// update route
+app.put('/blogs/:id', function(req, res) {
+  // need to use Method-Override to let html forms use PUT
+  // with: action="...?_method=PUT" method="POST">
+  const id = req.params.id;
+  const newData = req.body.blog;
+  Blog.findByIdAndUpdate(id, newData, function (err, updatedBlog) {
+    if (err) {
+      res.redirect('/blogs');
+    } else {
+      // id = req.params.id;
+      res.redirect('/blogs/' + id);
     }
   });
 });
