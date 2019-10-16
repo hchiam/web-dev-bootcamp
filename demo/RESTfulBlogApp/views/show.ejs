@@ -1,0 +1,16 @@
+<% include ./partials/header.ejs %>
+
+<main class="ui main text container segment">
+  <h1 class="ui huge header"><%= blog.title %></h1>
+  <div class="ui top attached item">
+    <img class="ui centered rounded image" 
+          alt="blog image" 
+          src="<%= blog.image %>" 
+          style="max-height: 10em;">
+    <span class="content" role="note"><%= blog.created.toDateString() %></span>
+    <p class="description"><%- blog.body %></p>
+    <!-- < % - actually evaluates the code (BUT SANITIZE FOR SCRIPTS) -->
+  </div>
+</main>
+
+<% include partials/footer %>
