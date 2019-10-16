@@ -8,6 +8,7 @@
           src="<%= blog.image %>" 
           style="max-height: 10em;">
     <span class="content" role="note"><%= blog.created.toDateString() %></span>
+    <!-- use Moment.js to get better format -->
     <p class="description"><%- blog.body %></p>
     <!-- < % - actually evaluates the code (BUT SANITIZE FOR SCRIPTS) -->
   </div>
