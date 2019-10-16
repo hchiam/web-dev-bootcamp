@@ -36,6 +36,7 @@ app.get('/', function(req, res) {
   res.redirect('/blogs');
 });
 
+// index route
 app.get('/blogs', function(req, res) {
   Blog.find({}, function(err, blogs) {
     if (err) {
@@ -43,6 +44,24 @@ app.get('/blogs', function(req, res) {
     } else {
       res.render('index', {blogs}); // gets file in views folder: views/index.ejs
       // NOTE: NOT 'views/index' but just 'index.ejs' or 'index'
+    }
+  });
+});
+
+// new route
+app.get('/blogs/new', function(req, res) {
+  res.render('new'); // views/new.ejs
+});
+
+// create route
+app.post('/blogs', function(req, res) {
+  // create blog
+  Blog.create(req.body.blog, function(err, blog) {
+    if (err) {
+      res.render('new');
+    } else {
+      // then, redirect to index
+      res.redirect('/blogs');
     }
   });
 });
