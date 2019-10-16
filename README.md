@@ -66,3 +66,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 | EDIT      | /dogs/:id/edit| GET!!!| Show form for UPDATE.
 | UPDATE    | /dogs/:id     | PUT   | Actually update, then redirect.
 | DESTROY   | /dogs/:id     | DELETE| Delete a dog, then redirect.
+
+## Random Notes
+
+Instead of `<input type="text" name="title">`, you can do `<input type="text" name="blog[title]">`. This makes `title` on `req.body.blog.title` instead of on `req.body.title`, and not you just pass one object `req.body.blog` to Blog.create(). (Note: body-parser syntax specifies `name="blog[title]"` instead of `name="blog['title']"` or `name="blog.title"`).
