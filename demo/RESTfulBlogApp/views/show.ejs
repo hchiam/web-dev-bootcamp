@@ -11,6 +11,11 @@
     <!-- use Moment.js to get better format -->
     <p class="description"><%- blog.body %></p>
     <!-- < % - actually evaluates the code (BUT SANITIZE FOR SCRIPTS) -->
+    
+    <!-- will override POST as DESTROY -->
+    <form action="/blogs/<%= blog._id %>?_method=DELETE" method="POST">
+      <button class="ui red basic button">Delete</button>
+    </form>
   </div>
 </main>
 

@@ -4,7 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
-// need to use Method-Override to let html forms use PUT
+// need to use Method-Override to let html forms use PUT/DELETE
 // with: action="...?_method=PUT" method="POST">
 
 app = express();
@@ -104,6 +104,23 @@ app.put('/blogs/:id', function(req, res) {
     } else {
       // id = req.params.id;
       res.redirect('/blogs/' + id);
+    }
+  });
+});
+
+// destroy route
+app.delete('/blogs/:id', function(req, res) {
+  // need to use Method-Override to let html forms use DELETE
+  // with: action="...?_method=DELETE" method="POST">
+  
+  // destroy blog
+  Blog.findByIdAndRemove(req.params.id, function (err) {
+    if (err) {
+      // TODO: redirect to error message page
+      res.redirect('/blogs');
+    } else {
+      // then, redirect to index
+      res.redirect('/blogs');
     }
   });
 });
