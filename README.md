@@ -53,7 +53,11 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 ## RESTful Routes Notes
 
+(Especially good demo for this is the [RESTfulBlogApp](https://github.com/hchiam/web-dev-bootcamp/tree/master/demo/RESTfulBlogApp) demo.)
+
 **Key words for me:** GET, POST, PUT, DELETE **=** show, new/create, edit/update, destroy **=** R, C, U, D.
+
+You could technically do everything with `POST` requests, but these extra verbs help make things more meaningful.
 
 **RESTful conventions:**
 
@@ -67,6 +71,8 @@ app.use(bodyParser.urlencoded({extended:true}));
 | UPDATE    | /dogs/:id     | PUT   | Actually update, then redirect.
 | DESTROY   | /dogs/:id     | DELETE| Delete a dog, then redirect.
 
+HTML forms can't use PUT (fallbacks to GET). Need to use `Method-Override` to "let" HTML forms use PUT/DELETE by overriding a POST method as a PUT with `action="...?_method=PUT" method="POST">` (`npm install method-override --save`).
+
 ## Random Notes
 
 Instead of `<input type="text" name="title">`, you can do `<input type="text" name="blog[title]">`. This makes `title` on `req.body.blog.title` instead of on `req.body.title`, and not you just pass one object `req.body.blog` to Blog.create(). (Note: body-parser syntax specifies `name="blog[title]"` instead of `name="blog['title']"` or `name="blog.title"`).
@@ -76,3 +82,7 @@ Instead of `<input type="text" name="title">`, you can do `<input type="text" na
 `./` = current folder / ...
 
 `../` = parent folder / ...
+
+```bash
+npm install express mongoose body-parser ejs method-override --save
+```
