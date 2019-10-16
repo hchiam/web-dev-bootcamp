@@ -32,6 +32,8 @@ nodemon node-demo.js # or nodemon express-demo.js
 
 ## body-parser for express
 
+`body-parser` is how we get data out of forms -> request body -> parse with `body-parser`.
+
 (In case it's currently not already included in express:)
 
 ```bash
@@ -44,6 +46,10 @@ then
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended:true}));
 ```
+
+## More Notes from yelp-camp Demo
+
+<https://github.com/hchiam/web-dev-bootcamp/blob/master/yelp-camp/readme.md>
 
 ## RESTful Routes Notes
 

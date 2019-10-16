@@ -40,6 +40,7 @@ app.listen(port, ip, ()=>{
 
 app.get('/', (req, res)=>{
     res.render('landing'); // views/landing.ejs
+    // NOTE: NOT 'views/landing' but just 'landing.ejs' or 'landing'
 });
 
 // INDEX

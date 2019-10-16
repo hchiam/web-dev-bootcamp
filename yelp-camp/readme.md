@@ -50,7 +50,7 @@ MongoDB = NoSQL = more flexible, but not necessarily better than SQL in all situ
 
 <https://www.youtube.com/watch?v=b089GmAvUyQ&feature=youtu.be>
 
-Finally, to get the database running:
+Finally, to get the database running: (**NOTE:** it's *NOT* just `mongod`!)
 
 ```bash
 ./mongod # this will run the database
