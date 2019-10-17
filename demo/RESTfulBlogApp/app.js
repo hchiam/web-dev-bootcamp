@@ -1,4 +1,4 @@
-// npm install express mongoose body-parser ejs method-override --save
+// npm install express mongoose body-parser ejs method-override express-sanitizer --save
 
 /** 
  * in a bigger project worked on by multiple developers,
@@ -9,6 +9,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const expressSanitizer = require('express-sanitizer');
 // need to use Method-Override to let html forms use PUT/DELETE
 // with: action="...?_method=PUT" method="POST">
 
@@ -21,6 +22,7 @@ app.set('view engine', 'ejs'); // so filename instead of filename.ejs
 app.use(express.static('public')); // get stylesheet
 app.use(bodyParser.urlencoded({ encoded:true, extended:true })); // body-parser
 app.use(methodOverride('_method')); // to enable HTML form to use PUT
+app.use(expressSanitizer()); // ORDERING NOTE: this just has to happen after app.use bodyParser
 
 // mongoose/model config
 
@@ -64,6 +66,9 @@ app.get('/blogs/new', function(req, res) {
 
 // create route
 app.post('/blogs', function(req, res) {
+  // sanitize blog[body] from new.ejs
+  req.body.blog.body = req.sanitize(req.body.blog.body);
+  
   // create blog
   Blog.create(req.body.blog, function(err, blog) {
     if (err) {
@@ -99,6 +104,9 @@ app.get('/blogs/:id/edit', function(req, res) {
 
 // update route
 app.put('/blogs/:id', function(req, res) {
+  // sanitize blog[body] from new.ejs
+  req.body.blog.body = req.sanitize(req.body.blog.body);
+
   // need to use Method-Override to let html forms use PUT
   // with: action="...?_method=PUT" method="POST">
   const id = req.params.id;

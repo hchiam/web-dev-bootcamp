@@ -12,6 +12,10 @@
     <p class="description"><%- blog.body %></p>
     <!-- < % - actually evaluates the code (BUT SANITIZE FOR SCRIPTS) -->
 
+    <a class="ui blue basic button" 
+       role="button" 
+       href="/blogs">Back</a>
+
     <a class="ui orange basic button" 
        role="button" 
        href="/blogs/<%= blog._id %>/edit">Edit</a>

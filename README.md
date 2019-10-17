@@ -61,17 +61,28 @@ You could technically do everything with `POST` requests, but these extra verbs 
 
 **RESTful conventions:**
 
-| name      | url           | verb        | description
-| ----------|---------------|-------------|------------------------------
-| INDEX     | /dogs         | GET   | Show all.
-| NEW       | /dogs/new     | GET!!!| Show form for CREATE.
-| CREATE    | /dogs         | POST  | Actually create DB entry, then redirect.
-| SHOW      | /dogs/:id     | GET   | Show one.
-| EDIT      | /dogs/:id/edit| GET!!!| Show form for UPDATE.
-| UPDATE    | /dogs/:id     | PUT   | Actually update, then redirect.
-| DESTROY   | /dogs/:id     | DELETE| Delete a dog, then redirect.
+| name      | url           | verb        | description                             | mongoose method
+| ----------|---------------|-------------|-----------------------------------------|-------------------------
+| INDEX     | /dogs         | GET         | Show all.                               | Dog.find( {}, (err,obj)=>{} )
+| NEW       | /dogs/new     | GET!!!      | Show form for CREATE.                   | N/A
+| CREATE    | /dogs         | POST        | Actually create DB entry, then redirect.| Dog.create( {}, (err,obj)=>{} )
+| SHOW      | /dogs/:id     | GET         | Show one.                               | Dog.findById( id, (err,obj)=>{} )
+| EDIT      | /dogs/:id/edit| GET!!!      | Show form for UPDATE.                   | Dog.findById( id, (err,obj)=>{} )
+| UPDATE    | /dogs/:id     | PUT         | Actually update, then redirect.         | Dog.findByIdAndUpdate( id, {}, (err,obj)=>{} )
+| DESTROY   | /dogs/:id     | DELETE      | Delete a dog, then redirect.            | Dog.findByIdAndRemove( id, (err)=>{} )
 
 HTML forms can't use PUT (fallbacks to GET). Need to use `Method-Override` to "let" HTML forms use PUT/DELETE by overriding a POST method as a PUT with `action="...?_method=PUT" method="POST">` (`npm install method-override --save`).
+
+Make sure to sanitize content in CREATE and UPDATE that could be evaluated (potential HTML and JS content).
+
+```js
+const expressSanitizer = require('express-sanitizer');
+...
+app.use(expressSanitizer());
+...
+// user could have maliciously inserted JS into content:
+req.body.blog.content = req.sanitize(req.body.blog.content);
+```
 
 ## Random Notes
 
@@ -84,5 +95,10 @@ Instead of `<input type="text" name="title">`, you can do `<input type="text" na
 `../` = parent folder / ...
 
 ```bash
-npm install express mongoose body-parser ejs method-override --save
+npm install express mongoose body-parser ejs method-override express-sanitizer --save
+```
+
+```html
+<%- blog.body %>
+<!-- <%- actually evaluates potential code/formatting inside blog.body (which you can sanitize with express-sanitizer) -->
 ```
