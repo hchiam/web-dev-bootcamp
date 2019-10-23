@@ -91,12 +91,14 @@ I.e. having associated data by relationships: one-to-one, one-to-many, many-to-m
 * Example of one-to-many: Facebook user with many photos.
 * Example of many-to-many: students and courses. Each student can have multiple courses, and each course can have multiple students.
 
- We'll use Mongoose to connect/associate data.
+We'll use Mongoose to connect/associate data.
 
- Two methods:
+Two methods:
 
- 1) Embed data (to associate it)
- 2) Reference data (to associate it)
+1) Embed data (to associate it)
+2) Reference data (to associate it)
+
+More notes [here](https://github.com/hchiam/web-dev-bootcamp/blob/master/demo/associations/README.md).
 
 ## Random Notes
 
