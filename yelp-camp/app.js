@@ -53,14 +53,14 @@ app.get('/campgrounds', (req, res)=>{
         if (err) {
             console.log(err);
         } else {
-            res.render('index', {campgrounds}); // views/index.ejs
+            res.render('campgrounds/index', {campgrounds}); // views/campgrounds/index.ejs
         }
     });
 });
 
 // NEW (still get because get page)
 app.get('/campgrounds/new', (req, res)=>{
-    res.render('new'); // views/new.ejs
+    res.render('campgrounds/new'); // views/campgrounds/new.ejs
 });
 
 // SHOW (make sure this pattern match is listed AFTER /campgrounds/new)
@@ -75,7 +75,7 @@ app.get('/campgrounds/:id', (req, res)=>{
                 console.log(err);
             } else {
                 console.log(campground);
-                res.render('show', {campground}); // views/show.ejs
+                res.render('campgrounds/show', {campground}); // views/campgrounds/show.ejs
             }
         }
     );
@@ -95,7 +95,47 @@ app.post('/campgrounds', (req, res)=>{
         } else {
             console.log('Added campground:');
             // redirect back to campgrounds page
+            res.redirect('/campgrounds'); // redirect URL (not .ejs file)
+        }
+    });
+});
+
+// =================================================================
+// COMMENTS ROUTES:
+// =================================================================
+
+app.get('/campgrounds/:id/comments/new', (req, res)=> {
+    // 1) find campground by ID
+    Campground.findById(req.params.id, (err, campground)=> {
+        if (err) {
+            console.log(err);
+        } else {
+            // 2) show new comment page
+            res.render('comments/new', {campground}); // views/comments/new.ejs
+        }
+    });
+});
+
+app.post('/campgrounds/:id/comments', (req, res)=> {
+    // 1) find campground by id
+    // 2) create new comment
+    // 3) connect new comment to campground
+    // 4) redirect to campground SHOW page
+    Campground.findById(req.params.id, (err, campground)=> { // 1)
+        if (err) {
+            console.log(err);
             res.redirect('/campgrounds');
+            // TODO: better handling than redirect
+        } else {
+            Comment.create(req.body.comment, (err, comment)=> { // 2)
+                if (err) {
+                    console.log(err);
+                } else {
+                    campground.comments.push(comment); // 3), part 1
+                    campground.save(); // 3), part 2
+                    res.redirect('/campgrounds/' + campground._id); // 4)
+                }
+            });
         }
     });
 });

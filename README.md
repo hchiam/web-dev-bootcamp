@@ -84,6 +84,24 @@ app.use(expressSanitizer());
 req.body.blog.content = req.sanitize(req.body.blog.content);
 ```
 
+### Nested Routes
+
+Using [`yelp-camp`](https://github.com/hchiam/web-dev-bootcamp/tree/master/yelp-camp) example:
+
+| name      | url               | verb
+| ----------|-------------------|-------------
+| INDEX     | /campgrounds      | GET
+| NEW       | /campgrounds/new  | GET (prep for the CREATE step)
+| CREATE    | /campgrounds      | POST
+| SHOW      | /campgrounds/:id  | GET
+
+Here be the ***nested routes:*** (comments are dependent on a campground)
+
+| name      | url                          | verb
+| ----------|------------------------------|-------------
+| NEW       | /campground/:id/comments/new | GET (prep for the CREATE step) after find campground
+| CREATE    | /campground/:id/comments     | POST after find campground
+
 ## Associations
 
 I.e. having associated data by relationships: one-to-one, one-to-many, many-to-many.
