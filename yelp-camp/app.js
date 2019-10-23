@@ -3,6 +3,18 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
+const Campground = require('./models/campground'); // ./models/campground.js replaces the next few lines:
+// // schema
+// const campgroundSchema = new mongoose.Schema({
+//     name: String,
+//     image: String,
+//     description: String,
+// });
+// 
+// // model
+// const Campground = mongoose.model('Campground', campgroundSchema);
+
+// // manually making a list:
 // const campgrounds = [
 //     {name:'Salmon Creek', image:'https://upload.wikimedia.org/wikipedia/commons/f/fc/Car_Camping.jpg'},
 //     {name:'Granite Hill', image:'https://upload.wikimedia.org/wikipedia/commons/3/39/Tenting_at_Joseph_A._Citta.jpg'},
@@ -21,16 +33,6 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/yelp_camp', {useNewUrlParser: true, useUnifiedTopology: true}); // find yelp_camp DB (and create it if it doesn't exist)
 app.use(bodyParser.urlencoded({encoded:true, extended:true}));
 app.set('view engine', 'ejs');
-
-// schema
-const campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String,
-});
-
-// model
-const Campground = mongoose.model('Campground', campgroundSchema);
 
 const port = process.env.PORT || 8000;
 const ip = process.env.IP;
