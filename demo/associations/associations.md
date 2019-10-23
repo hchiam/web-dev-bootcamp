@@ -14,6 +14,8 @@ Two methods:
 
 ## Embed data (to associate it)
 
+### Setup steps
+
 ```bash
 cd demo/associations
 touch embed.js
@@ -35,6 +37,27 @@ To test that it works:
 ```bash
 node embed.js # should get no messages if it works
 # hit Ctrl+C to stop
+```
+
+### Example code
+
+```js
+// POST - title, content
+const postSchema = new mongoose.Schema({
+  title: String,
+  content: String,
+});
+const Post = mongoose.model('Post', postSchema);
+
+// USER - email, name
+const userSchema = new mongoose.Schema({
+  email: String,
+  name: String,
+  posts: [postSchema], // <-- array of posts: THIS IS THE EMBED ASSOCIATION
+});
+const User = mongoose.model('User', userSchema);
+
+...
 ```
 
 ## Reference data (to associate it)
