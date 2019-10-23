@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
+const seedDB = require('./seed');
+const Comment = require('./models/comment'); // ./models/comment.js
 const Campground = require('./models/campground'); // ./models/campground.js replaces the next few lines:
 // // schema
 // const campgroundSchema = new mongoose.Schema({
@@ -33,6 +34,7 @@ const Campground = require('./models/campground'); // ./models/campground.js rep
 mongoose.connect('mongodb://localhost/yelp_camp', {useNewUrlParser: true, useUnifiedTopology: true}); // find yelp_camp DB (and create it if it doesn't exist)
 app.use(bodyParser.urlencoded({encoded:true, extended:true}));
 app.set('view engine', 'ejs');
+seedDB(); // (function imported from seed.js)
 
 const port = process.env.PORT || 8000;
 const ip = process.env.IP;
@@ -65,13 +67,18 @@ app.get('/campgrounds/new', (req, res)=>{
 app.get('/campgrounds/:id', (req, res)=>{
     // req.params.id comes from user
     // use Mongoose to guarantee unique ID instead of req.params.id:
-    Campground.findById(req.params.id, (err, campground)=>{
-        if (err) {
-            console.log(err);
-        } else {
-            res.render('show', {campground}); // views/show.ejs
+    // need .populate().exec to get the associated comments too
+    Campground.findById(req.params.id)
+        .populate('comments') // to make campground object will have comments
+        .exec((err, campground) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(campground);
+                res.render('show', {campground}); // views/show.ejs
+            }
         }
-    });
+    );
 });
 
 // CREATE
@@ -87,7 +94,6 @@ app.post('/campgrounds', (req, res)=>{
             console.log(err);
         } else {
             console.log('Added campground:');
-            console.log(newlyCreated);
             // redirect back to campgrounds page
             res.redirect('/campgrounds');
         }
