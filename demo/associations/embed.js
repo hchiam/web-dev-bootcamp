@@ -12,7 +12,7 @@ const Post = mongoose.model('Post', postSchema);
 const userSchema = new mongoose.Schema({
   email: String,
   name: String,
-  posts: [postSchema], // <-- array of posts: THIS IS THE EMBED ASSOCIATION
+  posts: [postSchema], // <-- array of posts: THIS IS THE EMBED ASSOCIATION format
 });
 const User = mongoose.model('User', userSchema);
 
