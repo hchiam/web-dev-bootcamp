@@ -11,3 +11,20 @@ mkdir models
 touch models/post.js
 touch models/user.js
 ```
+
+In the model module `post.js`:
+
+```js
+const mongoose = require('mongoose');
+...
+module.exports = Post;
+```
+
+***Then*** in the main app (`references.js` in this case):
+
+```js
+...
+// import models/post.js:
+const Post = require('./models/post'); // NOTE THE DOT!
+...
+```
