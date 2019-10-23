@@ -7,7 +7,7 @@ I.e. having DB data associated with each other by relationships: one-to-one, one
 
 We'll use Mongoose to connect/associate data.
 
-## Two methods:
+## Two methods
 
 1) **Embed** data (to associate it)
 2) **Reference** data (to associate it)
