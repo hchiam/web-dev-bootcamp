@@ -29,7 +29,7 @@ node app.js
 or
 
 ```bash
-nodemon index.js # to auto-run upon saving app.js
+nodemon app.js # to auto-run upon saving app.js
 ```
 
 Now create and edit files as needed.
