@@ -84,6 +84,13 @@ app.use(expressSanitizer());
 req.body.blog.content = req.sanitize(req.body.blog.content);
 ```
 
+## Associations
+
+I.e. having associated data by relationships: one-to-one, one-to-many, many-to-many. We'll use Mongoose to connect/associate data.
+
+* Example of one-to-many: Facebook user with many photos.
+* Example of many-to-many: students and courses. Each student can have multiple courses, and each course can have multiple students.
+
 ## Random Notes
 
 Instead of `<input type="text" name="title">`, you can do `<input type="text" name="blog[title]">`. This makes `title` on `req.body.blog.title` instead of on `req.body.title`, and not you just pass one object `req.body.blog` to Blog.create(). (Note: body-parser syntax specifies `name="blog[title]"` instead of `name="blog['title']"` or `name="blog.title"`).
