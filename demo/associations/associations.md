@@ -21,6 +21,15 @@ touch embed.js
 npm install mongoose
 ```
 
+In another CLI tab/window:
+
+```bash
+mkdir data
+touch mongod
+# (fill code in mongod)
+# keep this running and now go back to the other CLI tab/window
+```
+
 To test that it works:
 
 ```bash
