@@ -91,6 +91,7 @@ And importantly:
 #### Insert
 
 Example: `db.dogs.insert({name: "Rusty", breed: "Mutt"})`
+
 * `db` = currently-used database
 * `dogs` = collection/"table"
 * `insert` = insert into the dogs collection this data: `{name: "Rusty", breed: "Mutt"}`
@@ -104,10 +105,12 @@ Example: `db.dogs.find({name:"Rusty"})` finds all with `name` = `"Rusty"`.
 ### Update
 
 ***Non***-Example: *DO NOT USE!* `db.dogs.update({name:"Lulu"}, {breed:"Labradoodle"})`
+
 * Note: this will completely replace `{..., "name" : "Lulu", "breed" : "Poodle"}` with `{..., "breed" : "Labradoodle"}`.
 
 Example: `db.dogs.update({name:"Lulu"}, { $set: {breed:"Labradoodle"} })`
 Example: `db.dogs.update({name:"Rusty"}, { $set: {name:"Tyrone", isCute:true} })`
+
 * `$set:{...}` lets you update **OR** insert properties; "upsert".
 
 ### Remove
