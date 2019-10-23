@@ -102,6 +102,8 @@ More notes [here](https://github.com/hchiam/web-dev-bootcamp/blob/master/demo/as
 
 ## Module.Exports
 
+Why: Modularize the JS code into separate files, e.g. separate files for models that you can `require` in.
+
 <https://github.com/hchiam/web-dev-bootcamp/blob/master/demo/module-exports/module-exports.md>
 
 ## Random Notes
