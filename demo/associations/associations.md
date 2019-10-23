@@ -14,8 +14,4 @@ Two methods:
 
 ## Embed data (to associate it)
 
-User
-Post
-
 ## Reference data (to associate it)
-

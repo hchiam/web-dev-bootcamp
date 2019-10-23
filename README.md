@@ -98,7 +98,7 @@ Two methods:
 1) Embed data (to associate it)
 2) Reference data (to associate it)
 
-More notes [here](https://github.com/hchiam/web-dev-bootcamp/blob/master/demo/associations/README.md).
+More notes [here](https://github.com/hchiam/web-dev-bootcamp/blob/master/demo/associations/associations.md).
 
 ## Random Notes
 
