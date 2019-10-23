@@ -14,4 +14,18 @@ Two methods:
 
 ## Embed data (to associate it)
 
+```bash
+cd demo/associations
+touch embed.js
+# (fill code in embed.js)
+npm install mongoose
+```
+
+To test that it works:
+
+```bash
+node embed.js # should get no messages if it works
+# hit Ctrl+C to stop
+```
+
 ## Reference data (to associate it)

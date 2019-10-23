@@ -118,3 +118,9 @@ npm install express mongoose body-parser ejs method-override express-sanitizer -
 <%- blog.body %>
 <!-- <%- actually evaluates potential code/formatting inside blog.body (which you can sanitize with express-sanitizer) -->
 ```
+
+To get rid of the CLI errors with mongoose.connect, don't just do `mongoose.connect('mongodb://localhost/yelp_camp');`, but do this:
+
+```js
+mongoose.connect('mongodb://localhost/yelp_camp', {useNewUrlParser: true, useUnifiedTopology: true}); // find yelp_camp DB (and create it if it doesn't exist)
+```
