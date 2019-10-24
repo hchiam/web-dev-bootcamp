@@ -85,7 +85,7 @@ app.get('/logout', (req, res) => {
 
 // custom middleware to check if user is logged in
 function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) { // isAuthenticated comes from passpord
+  if (req.isAuthenticated()) { // isAuthenticated comes from passport
     return next(); // continue with what's NEXT "after" the middleware
   }
   res.redirect('/login'); // otherwise do NOT continue with what's next

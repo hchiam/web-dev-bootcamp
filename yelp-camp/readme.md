@@ -206,3 +206,13 @@ touch models/user.js
 touch views/register.ejs
 touch views/login.ejs
 ```
+
+## Refactoring Routes into Separate Files
+
+Move routes from `app.js` into the `routes/...` files.
+
+```bash
+touch routes/index.js
+touch routes/campgrounds.js
+touch routes/comments.js
+```
