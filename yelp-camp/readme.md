@@ -17,6 +17,12 @@ mkdir data
 touch mongod
 ```
 
+Enter this code inside the `mongod` file:
+
+```
+mongod --dbpath=data --nojournal
+```
+
 Now keep the database running in the background:
 
 ```bash
