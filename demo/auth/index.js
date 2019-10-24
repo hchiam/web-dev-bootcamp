@@ -20,9 +20,10 @@ app.use(expressSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// automatically encode and decode session data:
+// automatically encode and decode session data, and use local strategy:
+passport.use(new LocalStrategy(User.authenticate())); // User uses passport-local-mongoose
 passport.serializeUser(User.serializeUser()); // User uses passport-local-mongoose
-passport.deserializeUser(User.deserializeUser());
+passport.deserializeUser(User.deserializeUser()); // User uses passport-local-mongoose
 
 // ===============================
 // ROUTES
@@ -42,11 +43,9 @@ app.get('/secret', (req, res) => {
 app.get('/register', (req, res) => {
   res.render('register');
 });
-
 // handle user sign up
 app.post('/register', (req, res) => {
-  req.body.username
-  req.body.password
+  // register user, but...
   // !!!! DO NOT SAVE password in the DATABASE using new User({...}) !!!!
   // INSTEAD, pass the password as a 2nd argument to User.register (from passport-local-mongoose)
   User.register(new User({ username: req.body.username}), req.body.password, (err, user)=> {
@@ -61,6 +60,20 @@ app.post('/register', (req, res) => {
       res.redirect('/secret');
     });
   });
+});
+
+// Login routes
+
+// render login form
+app.get('/login', (req, res) => {
+  res.render('login');
+});
+// actually login, using passport as middleware before final callback
+app.post('/login', passport.authenticate('local', { // using passport as middleware
+  successRedirect: '/secret', // URL to redirect to upon login success
+  failureRedirect: '/login', // URL to redirect to upon login failure
+}), (req, res) => { // final callback
+  // final callback code
 });
 
 app.listen(8000, process.env.IP || 'localhost', () => {

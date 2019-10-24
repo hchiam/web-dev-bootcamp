@@ -19,6 +19,7 @@ mkdir models
 touch views/home.ejs
 touch views/secret.ejs
 touch views/register.ejs
+touch views/login.ejs
 touch models/user.js
 ```
 
