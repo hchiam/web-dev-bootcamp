@@ -7,7 +7,7 @@
 * POST route for form to create campground
 * navbar
 
-## Steps
+## Initial steps
 
 ```bash
 npm init
