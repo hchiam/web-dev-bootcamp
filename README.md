@@ -64,16 +64,18 @@ You could technically do everything with `POST` requests, but these extra verbs 
 | name      | url           | verb        | description                             | mongoose method
 | ----------|---------------|-------------|-----------------------------------------|-------------------------
 | INDEX     | /dogs         | GET         | Show all.                               | Dog.find( {}, (err,obj)=>{} )
-| NEW       | /dogs/new     | GET!!!      | Show form for CREATE.                   | N/A
-| CREATE    | /dogs         | POST        | Actually create DB entry, then redirect.| Dog.create( {}, (err,obj)=>{} )
+| NEW *     | /dogs/new     | GET!!!      | Show form for CREATE.                   | N/A
+| CREATE *  | /dogs         | POST        | Actually create DB entry, then redirect.| Dog.create( {}, (err,obj)=>{} )
 | SHOW      | /dogs/:id     | GET         | Show one.                               | Dog.findById( id, (err,obj)=>{} )
-| EDIT      | /dogs/:id/edit| GET!!!      | Show form for UPDATE.                   | Dog.findById( id, (err,obj)=>{} )
-| UPDATE    | /dogs/:id     | PUT         | Actually update, then redirect.         | Dog.findByIdAndUpdate( id, {}, (err,obj)=>{} )
-| DESTROY   | /dogs/:id     | DELETE      | Delete a dog, then redirect.            | Dog.findByIdAndRemove( id, (err)=>{} )
+| EDIT *    | /dogs/:id/edit| GET!!!      | Show form for UPDATE.                   | Dog.findById( id, (err,obj)=>{} )
+| UPDATE *  | /dogs/:id     | PUT         | Actually update, then redirect.         | Dog.findByIdAndUpdate( id, {}, (err,obj)=>{} )
+| DESTROY * | /dogs/:id     | DELETE      | Delete a dog, then redirect.            | Dog.findByIdAndRemove( id, (err)=>{} )
 
 HTML forms can't use PUT (fallbacks to GET). Need to use `Method-Override` to "let" HTML forms use PUT/DELETE by overriding a POST method as a PUT with `action="...?_method=PUT" method="POST">` (`npm install method-override --save`).
 
 Make sure to sanitize content in CREATE and UPDATE that could be evaluated (potential HTML and JS content).
+
+Make sure that these starred (*) actions/routes verify that used is logged in. Even if people cannot access the webpage, they could use something like Postman to edit the database, unless you check login status. For example, check on both the NEW and CREATE routes, even though normally users can't get to the CREATE route without logging in.
 
 ```js
 const expressSanitizer = require('express-sanitizer');

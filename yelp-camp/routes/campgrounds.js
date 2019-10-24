@@ -14,18 +14,22 @@ router.get('/', (req, res) => { // '/campgrounds'
 });
 
 // NEW (still get because get page) - show form to create campground
-router.get('/new', (req, res) => { // '/campgrounds/new'
+router.get('/new', isLoggedIn, (req, res) => { // '/campgrounds/new'
   res.render('campgrounds/new'); // views/campgrounds/new.ejs
 });
 
 // CREATE
-router.post('/', (req, res) => { // '/campgrounds'
+router.post('/', isLoggedIn, (req, res) => { // '/campgrounds'
   // get data from form
   const name = req.body.name;
   const image = req.body.image;
   const description = req.body.description;
+  const author = {id: req.user._id, username: req.user.username}; // (req.user is available since we used isLoggedIn)
+  const newCampground = {name, image, description, author};
+  console.log(newCampground);
+  
   // add campground to DB
-  Campground.create({name, image, description}, (err, newlyCreated) => {
+  Campground.create(newCampground, (err, newlyCreated) => {
       if (err) {
           console.log('Error:');
           console.log(err);
@@ -54,5 +58,13 @@ router.get('/:id', (req, res) => { // '/campgrounds/:id'
       }
   );
 });
+
+// custom middleware to check if user is logged in
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) { // isAuthenticated comes from passport
+      return next(); // continue with what's NEXT "after" the middleware
+  }
+  res.redirect('/login'); // otherwise do NOT continue with what's next
+}
 
 module.exports = router;

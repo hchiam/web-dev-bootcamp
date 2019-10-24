@@ -20,6 +20,11 @@
           <h4 class="pull-right">$9.00/night</h4>
           <h4><a><%= campground.name %></a></h4>
           <p><%= campground.description %></p>
+          <% if (campground.author.username) { %>
+            <p>Submitted by: <strong><%= campground.author.username %></strong></p>
+          <% } else { %>
+            <p>Submitted by: <em>(Unknown user)</em></p>
+          <% } %>
         </div>
       </div>
       <div class="well">
@@ -34,7 +39,7 @@
               <% if (comment.author.username) { %>
                 <strong><%= comment.author.username %></strong>
               <% } else { %>
-                <i>(Unknown user)</i>
+                <em>(Unknown user)</em>
               <% } %>
               <span class="pull-right">10 days ago</span>
               <p><%= comment.text %></p>
