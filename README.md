@@ -143,13 +143,13 @@ npm install express mongoose body-parser ejs method-override express-sanitizer -
 <!-- <%- actually evaluates potential code/formatting inside blog.body (which you can sanitize with express-sanitizer) -->
 ```
 
-To get rid of the CLI errors with mongoose.connect, don't just do `mongoose.connect('mongodb://localhost/yelp_camp');`, but do this:
+* To get rid of the CLI errors with mongoose.connect, don't just do `mongoose.connect('mongodb://localhost/yelp_camp');`, but do this:
 
 ```js
 mongoose.connect('mongodb://localhost/yelp_camp', {useNewUrlParser: true, useUnifiedTopology: true}); // find yelp_camp DB (and create it if it doesn't exist)
 ```
 
-To include the `public` folder (e.g. to include CSS files):
+* To include the `public` folder (e.g. to include CSS files):
 
 ```js
 app.use(express.static(__dirname + '/public')); // __dirname = directory script lives in
@@ -164,3 +164,5 @@ app.use(express.static(__dirname + '/public')); // __dirname = directory script 
   ...
 </head>
 ```
+
+* Backup of Colt Steele's source code: <https://github.com/nax3t/webdevbootcamp>
