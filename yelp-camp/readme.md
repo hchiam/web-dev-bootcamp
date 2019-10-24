@@ -203,4 +203,6 @@ npm install passport passport-local passport-local-mongoose express-session --sa
 
 ```bash
 touch models/user.js
+touch views/register.ejs
+touch views/login.ejs
 ```

@@ -49,25 +49,35 @@ app.use(expressSession({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
 // automatically encode and decode session data, and use local strategy:
 passport.use(new LocalStrategy(User.authenticate())); // User uses passport-local-mongoose
 passport.serializeUser(User.serializeUser()); // User uses passport-local-mongoose
 passport.deserializeUser(User.deserializeUser()); // User uses passport-local-mongoose
 
+// set up currentUser on every route: (which all HTML templates can then use)
+app.use((req, res, next) => {
+    // set a custom variable currentUser (to be used by all our HTML templates)
+    // i.e. automatically add currentUser parameter to the object when do res.render,
+    // i.e. no need to explicity code "currentUser: req.user" in res.render('campgrounds/index', {campgrounds, currentUser: req.user});
+    res.locals.currentUser = req.user; // req.user comes from passport.js
+    next(); // use whatever's NEXT after this "middleware"
+});
+
 const port = process.env.PORT || 8000;
 const ip = process.env.IP;
-app.listen(port, ip, ()=>{
+app.listen(port, ip, () => {
     console.log(`The YelpCamp server has started${port ? ' on port ' + port : ''}!`);
 });
 
-app.get('/', (req, res)=>{
+app.get('/', (req, res) => {
     res.render('landing'); // views/landing.ejs
     // NOTE: NOT 'views/landing' but just 'landing.ejs' or 'landing'
 });
 
 // INDEX
-app.get('/campgrounds', (req, res)=>{
-    Campground.find({}, (err, campgrounds)=>{
+app.get('/campgrounds', (req, res) => {
+    Campground.find({}, (err, campgrounds) => {
         if (err) {
             console.log(err);
         } else {
@@ -77,12 +87,12 @@ app.get('/campgrounds', (req, res)=>{
 });
 
 // NEW (still get because get page)
-app.get('/campgrounds/new', (req, res)=>{
+app.get('/campgrounds/new', (req, res) => {
     res.render('campgrounds/new'); // views/campgrounds/new.ejs
 });
 
 // SHOW (make sure this pattern match is listed AFTER /campgrounds/new)
-app.get('/campgrounds/:id', (req, res)=>{
+app.get('/campgrounds/:id', (req, res) => {
     // req.params.id comes from user
     // use Mongoose to guarantee unique ID instead of req.params.id:
     // need .populate().exec to get the associated comments too
@@ -100,13 +110,13 @@ app.get('/campgrounds/:id', (req, res)=>{
 });
 
 // CREATE
-app.post('/campgrounds', (req, res)=>{
+app.post('/campgrounds', (req, res) => {
     // get data from form
     const name = req.body.name;
     const image = req.body.image;
     const description = req.body.description;
     // add campground to DB
-    Campground.create({name, image, description}, (err, newlyCreated)=> {
+    Campground.create({name, image, description}, (err, newlyCreated) => {
         if (err) {
             console.log('Error:');
             console.log(err);
@@ -122,9 +132,14 @@ app.post('/campgrounds', (req, res)=>{
 // COMMENTS ROUTES:
 // =================================================================
 
-app.get('/campgrounds/:id/comments/new', (req, res)=> {
+app.get('/campgrounds/:id/comments/new', isLoggedIn, (req, res) => {
+    /** 
+     * NOTE: the middleware function isLoggedIn(req, res, next) 
+     * gets processed first before the code decides whether to enter this callback:
+     */
+
     // 1) find campground by ID
-    Campground.findById(req.params.id, (err, campground)=> {
+    Campground.findById(req.params.id, (err, campground) => {
         if (err) {
             console.log(err);
         } else {
@@ -134,18 +149,23 @@ app.get('/campgrounds/:id/comments/new', (req, res)=> {
     });
 });
 
-app.post('/campgrounds/:id/comments', (req, res)=> {
+app.post('/campgrounds/:id/comments', isLoggedIn, (req, res) => {
+    /** 
+     * NOTE: the middleware function isLoggedIn(req, res, next) 
+     * gets processed first before the code decides whether to enter this callback:
+     */
+
     // 1) find campground by id
     // 2) create new comment
     // 3) connect new comment to campground
     // 4) redirect to campground SHOW page
-    Campground.findById(req.params.id, (err, campground)=> { // 1)
+    Campground.findById(req.params.id, (err, campground) => { // 1)
         if (err) {
             console.log(err);
             res.redirect('/campgrounds');
             // TODO: better handling than redirect
         } else {
-            Comment.create(req.body.comment, (err, comment)=> { // 2)
+            Comment.create(req.body.comment, (err, comment) => { // 2)
                 if (err) {
                     console.log(err);
                 } else {
@@ -172,7 +192,7 @@ app.post('/register', (req, res) => {
     // !!!! DO NOT SAVE password in the DATABASE using new User({...}) !!!!
     const newUser = new User({ username: req.body.username});
     // INSTEAD, pass the password as a 2nd argument to User.register (from passport-local-mongoose)
-    User.register(newUser, req.body.password, (err, user)=> {
+    User.register(newUser, req.body.password, (err, user) => {
         if (err) {
             console.log(err);
             return res.render('register');
@@ -185,3 +205,31 @@ app.post('/register', (req, res) => {
         });
     });
 });
+
+// Login routes
+
+// show login form
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+// actually login, using passport as middleware before final callback
+app.post('/login', passport.authenticate('local', { // using passport as middleware
+    successRedirect: '/campgrounds', // URL to redirect to upon login success
+    failureRedirect: '/login', // URL to redirect to upon login failure
+}), (req, res) => { // final callback
+    // final callback code
+});
+
+// logout:
+app.get('/logout', (req, res) => {
+    req.logout(); // signal to passport to "forget" user login data from session
+    res.redirect('/campgrounds');
+});
+
+// custom middleware to check if user is logged in
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) { // isAuthenticated comes from passpord
+        return next(); // continue with what's NEXT "after" the middleware
+    }
+    res.redirect('/login'); // otherwise do NOT continue with what's next
+}
