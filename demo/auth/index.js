@@ -33,7 +33,8 @@ app.get('/', (req, res) => {
   res.render('home');
 });
 
-app.get('/secret', (req, res) => {
+app.get('/secret', isLoggedIn, (req, res) => {
+  // note the middleware ^ function isLoggedIn(req, res, next)
   res.render('secret');
 });
 
@@ -75,6 +76,20 @@ app.post('/login', passport.authenticate('local', { // using passport as middlew
 }), (req, res) => { // final callback
   // final callback code
 });
+
+// logout:
+app.get('/logout', (req, res) => {
+  req.logout(); // signal to passport to "forget" user login data from session
+  res.redirect('/');
+});
+
+// custom middleware to check if user is logged in
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) { // isAuthenticated comes from passpord
+    return next(); // continue with what's NEXT "after" the middleware
+  }
+  res.redirect('/login'); // otherwise do NOT continue with what's next
+}
 
 app.listen(8000, process.env.IP || 'localhost', () => {
   console.log('Server started.');
