@@ -30,8 +30,11 @@ router.post('/', isLoggedIn, (req, res) => { // '/campgrounds/:id/comments/'
 
   // 1) find campground by id
   // 2) create new comment
-  // 3) connect new comment to campground
-  // 4) redirect to campground SHOW page
+  // 3) add username and id to comment
+  // 4) save comment to DB
+  // 5) add comment to campground
+  // 6) save campground to DB
+  // 7) redirect to campground SHOW page
   Campground.findById(req.params.id, (err, campground) => { // 1)
       if (err) {
           console.log(err);
@@ -42,9 +45,12 @@ router.post('/', isLoggedIn, (req, res) => { // '/campgrounds/:id/comments/'
               if (err) {
                   console.log(err);
               } else {
-                  campground.comments.push(comment); // 3), part 1
-                  campground.save(); // 3), part 2
-                  res.redirect('/campgrounds/' + campground._id); // 4)
+                comment.author.id = req.user._id; // 3) (req.user is available since we used isLoggedIn)
+                comment.author.username = req.user.username; // 3) (req.user is available since we used isLoggedIn)
+                comment.save(); // 4)
+                campground.comments.push(comment); // 5)
+                campground.save(); // 6)
+                res.redirect('/campgrounds/' + campground._id); // 7)
               }
           });
       }

@@ -31,7 +31,11 @@
         <% campground.comments.forEach((comment) => { %>
           <div class="row">
             <div class="col-md-12">
-              <strong><%= comment.author %></strong>
+              <% if (comment.author.username) { %>
+                <strong><%= comment.author.username %></strong>
+              <% } else { %>
+                <i>(Unknown user)</i>
+              <% } %>
               <span class="pull-right">10 days ago</span>
               <p><%= comment.text %></p>
             </div>
