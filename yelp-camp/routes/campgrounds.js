@@ -1,5 +1,4 @@
 const express = require('express');
-const isImageUrl = require('is-image-url');
 const Campground = require('../models/campground');
 const router = express.Router();
 
@@ -23,14 +22,9 @@ router.get('/new', isLoggedIn, (req, res) => { // '/campgrounds/new'
 router.post('/', isLoggedIn, (req, res) => { // '/campgrounds'
   // get data from form
   const name = req.body.name;
-  let image = req.body.image;
+  const image = req.body.image;
   const description = req.body.description;
   const author = {id: req.user._id, username: req.user.username}; // (req.user is available since we used isLoggedIn)
-
-  if (!isImageUrl(image)) {
-    image = '';
-  }
-
   const newCampground = {name, image, description, author};
   console.log(newCampground);
   
