@@ -124,6 +124,12 @@ Why: Modularize the JS code into separate files, e.g. separate files for models 
 
 <https://github.com/hchiam/web-dev-bootcamp/blob/master/demo/module-exports/module-exports.md>
 
+## Authentiation
+
+`passport.js`, `passport-local`, (`passport-local-mongoose`), and `express-session`.
+
+<https://github.com/hchiam/web-dev-bootcamp/blob/master/demo/auth/auth.md>
+
 ## Random Notes
 
 Instead of `<input type="text" name="title">`, you can do `<input type="text" name="blog[title]">`. This makes `title` on `req.body.blog.title` instead of on `req.body.title`, and not you just pass one object `req.body.blog` to Blog.create(). (Note: body-parser syntax specifies `name="blog[title]"` instead of `name="blog['title']"` or `name="blog.title"`).
