@@ -1,4 +1,5 @@
 const express = require('express');
+const isAnImageUrl = require('is-an-image-url');
 const Campground = require('../models/campground');
 const router = express.Router();
 
@@ -22,9 +23,12 @@ router.get('/new', isLoggedIn, (req, res) => { // '/campgrounds/new'
 router.post('/', isLoggedIn, (req, res) => { // '/campgrounds'
   // get data from form
   const name = req.body.name;
-  const image = req.body.image;
+  let image = req.body.image;
   const description = req.body.description;
   const author = {id: req.user._id, username: req.user.username}; // (req.user is available since we used isLoggedIn)
+  
+  if (!isValidImageURL(image)) image = '';
+
   const newCampground = {name, image, description, author};
   console.log(newCampground);
   
@@ -58,6 +62,16 @@ router.get('/:id', (req, res) => { // '/campgrounds/:id'
       }
   );
 });
+
+function isValidImageURL(url) {
+    isAnImageUrl(url, function(isAnImageResult) {
+        if (isAnImageResult) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+}
 
 // custom middleware to check if user is logged in
 function isLoggedIn(req, res, next) {
