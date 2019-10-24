@@ -18,6 +18,8 @@ mkdir views
 mkdir models
 touch views/home.ejs
 touch views/secret.ejs
+touch views/register.ejs
+touch models/user.js
 ```
 
 Create the files as seen in this folder, then run
