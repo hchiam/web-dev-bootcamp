@@ -2,7 +2,11 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const expressSession = require('express-session');
 const seedDB = require('./seed');
+const User = require('./models/user');
 const Comment = require('./models/comment'); // ./models/comment.js
 const Campground = require('./models/campground'); // ./models/campground.js replaces the next few lines:
 // // schema
@@ -36,6 +40,19 @@ app.use(bodyParser.urlencoded({encoded:true, extended:true}));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public')); // __dirname = directory script lives in
 seedDB(); // (function imported from seed.js)
+
+// PASSPORT CONFIGURATION
+app.use(expressSession({
+    secret: 'some complex secret string to encode and decode the session data',
+    resave: false,
+    saveUninitialized: false,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+// automatically encode and decode session data, and use local strategy:
+passport.use(new LocalStrategy(User.authenticate())); // User uses passport-local-mongoose
+passport.serializeUser(User.serializeUser()); // User uses passport-local-mongoose
+passport.deserializeUser(User.deserializeUser()); // User uses passport-local-mongoose
 
 const port = process.env.PORT || 8000;
 const ip = process.env.IP;
@@ -138,5 +155,33 @@ app.post('/campgrounds/:id/comments', (req, res)=> {
                 }
             });
         }
+    });
+});
+
+// ===============================
+// AUTH ROUTES:
+// ===============================
+
+// show register form
+app.get('/register', (req, res) => {
+    res.render('register');
+});
+// handle signup logic
+app.post('/register', (req, res) => {
+    // register user, but...
+    // !!!! DO NOT SAVE password in the DATABASE using new User({...}) !!!!
+    const newUser = new User({ username: req.body.username});
+    // INSTEAD, pass the password as a 2nd argument to User.register (from passport-local-mongoose)
+    User.register(newUser, req.body.password, (err, user)=> {
+        if (err) {
+            console.log(err);
+            return res.render('register');
+        }
+        // do THE ACTUAL LOGIN and use the serializeUser method specified above
+        // with ('local') strategy (other options would be google/facebook/twitter/etc.)
+        passport.authenticate('local')(req, res, () => {
+            // once user logged in, can now do something else
+            res.redirect('/campgrounds');
+        });
     });
 });
