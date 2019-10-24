@@ -7,7 +7,35 @@
 * POST route for form to create campground
 * navbar
 
-## Initial steps
+## To run demo as-is from GitHub
+
+If the `data` folder and `mongod` file do not already exist in the `yelp-camp` folder, create them:
+
+```bash
+cd yelp-camp
+mkdir data
+touch mongod
+```
+
+Now keep the database running in the background:
+
+```bash
+./mongod
+```
+
+And now go to a separate CLI tab/window and run the app:
+
+```bash
+node app.js
+```
+
+(Or have it automatically restart when you edit `app.js`:)
+
+```bash
+nodemon app.js
+```
+
+## Initial development steps
 
 ```bash
 npm init
