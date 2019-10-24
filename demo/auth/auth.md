@@ -1,4 +1,4 @@
-# Authentiation
+# Authentication
 
 `passport.js`, `passport-local`, (`passport-local-mongoose`), and `express-session`.
 

@@ -124,7 +124,7 @@ Why: Modularize the JS code into separate files, e.g. separate files for models 
 
 <https://github.com/hchiam/web-dev-bootcamp/blob/master/demo/module-exports/module-exports.md>
 
-## Authentiation
+## Authentication
 
 `passport.js`, `passport-local`, (`passport-local-mongoose`), and `express-session`.
 
@@ -141,7 +141,7 @@ Instead of `<input type="text" name="title">`, you can do `<input type="text" na
 `../` = parent folder / ...
 
 ```bash
-npm install express mongoose body-parser ejs method-override express-sanitizer --save
+npm install express mongoose body-parser ejs method-override express-sanitizer passport passport-local passport-local-mongoose express-session --save
 ```
 
 ```html

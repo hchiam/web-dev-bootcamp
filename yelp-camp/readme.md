@@ -194,3 +194,13 @@ Campground.find({}, (err, results)=> {
 });
 
 ```
+
+## Authentication
+
+```bash
+npm install passport passport-local passport-local-mongoose express-session --save
+```
+
+```bash
+touch models/user.js
+```
