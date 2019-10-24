@@ -34,6 +34,7 @@ const Campground = require('./models/campground'); // ./models/campground.js rep
 mongoose.connect('mongodb://localhost/yelp_camp', {useNewUrlParser: true, useUnifiedTopology: true}); // find yelp_camp DB (and create it if it doesn't exist)
 app.use(bodyParser.urlencoded({encoded:true, extended:true}));
 app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/public')); // __dirname = directory script lives in
 seedDB(); // (function imported from seed.js)
 
 const port = process.env.PORT || 8000;

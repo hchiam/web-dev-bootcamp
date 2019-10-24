@@ -148,3 +148,19 @@ To get rid of the CLI errors with mongoose.connect, don't just do `mongoose.conn
 ```js
 mongoose.connect('mongodb://localhost/yelp_camp', {useNewUrlParser: true, useUnifiedTopology: true}); // find yelp_camp DB (and create it if it doesn't exist)
 ```
+
+To include the `public` folder (e.g. to include CSS files):
+
+```js
+app.use(express.static(__dirname + '/public')); // __dirname = directory script lives in
+```
+
+-> and now you can include CSS files like this:
+
+```html
+<head>
+  ...
+  <link rel="stylesheet" href="/stylesheets/main.css">
+  ...
+</head>
+```
