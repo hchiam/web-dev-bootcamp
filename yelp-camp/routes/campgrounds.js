@@ -90,6 +90,16 @@ router.put('/:id', (req, res) => {
     });
 });
 
+// DESTROY
+router.delete('/:id', (req, res) => {
+    Campground.findByIdAndDelete(req.params.id, (err) => {
+        if (err) {
+            res.redirect('/campgrounds');
+        } else {
+            res.redirect('/campgrounds');
+        }
+    });
+});
 
 function isValidImageURL(url) {
     isAnImageUrl(url, function(isAnImageResult) {
