@@ -174,3 +174,9 @@ app.use(express.static(__dirname + '/public')); // __dirname = directory script 
 ```
 
 * Backup of Colt Steele's source code: <https://github.com/nax3t/webdevbootcamp>
+
+`res.redirect` special redirect:
+
+```js
+res.redirect('back'); // special meaning: go back to wherever the user was last
+```
