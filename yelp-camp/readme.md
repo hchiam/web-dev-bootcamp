@@ -285,3 +285,32 @@ Move the custom middleware functions to a separate file(s) and make the routes .
 mkdir middleware
 touch middleware/index.js
 ```
+
+## Flash Messages (i.e. temporary notifications)
+
+```bash
+npm install --save connect-flash
+```
+
+And then in the top-level `/yelp-camp/app.js`:
+
+```js
+const flash = require('connect-flash');
+...
+const app = express();
+...
+app.use(flash());
+```
+
+**Note**: It's a good idea to have `express-session` set up if you're not already using it or "cookieParser".
+
+```js
+// PASSPORT CONFIGURATION
+app.use(expressSession({
+    secret: 'some complex secret string to encode and decode the session data',
+    resave: false,
+    saveUninitialized: false,
+}));
+```
+
+Bootstrap also has built-in styles for flash messages.

@@ -138,6 +138,8 @@ Why: Modularize the JS code into separate files, e.g. separate files for models 
 
 ## Random Notes
 
+When searching for packages on Google for tutorials/snippets, get the most-up-to-date APIs by adding "Express 4" to the search string.
+
 Instead of `<input type="text" name="title">`, you can do `<input type="text" name="blog[title]">`. This makes `title` on `req.body.blog.title` instead of on `req.body.title`, and not you just pass one object `req.body.blog` to Blog.create(). (Note: body-parser syntax specifies `name="blog[title]"` instead of `name="blog['title']"` or `name="blog.title"`).
 
 `/` = root folder / ...
