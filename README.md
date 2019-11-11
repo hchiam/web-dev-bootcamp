@@ -126,11 +126,15 @@ Why: Modularize the JS code into separate files, e.g. separate files for models 
 
 <https://github.com/hchiam/web-dev-bootcamp/blob/master/demo/module-exports/module-exports.md>
 
-## Authentication
+## Authentication and Authorization
 
 `passport.js`, `passport-local`, (`passport-local-mongoose`), and `express-session`.
 
 <https://github.com/hchiam/web-dev-bootcamp/blob/master/demo/auth/auth.md>
+
+**AUTHENTICATION** = checking they're who they say they are. Example: our custom middleware `isLoggedIn`.
+
+**AUTHORIZATION** = checking whether they're allowed to do an action. Example: our custom middleware `checkCampgroundOwnership`.
 
 ## Random Notes
 

@@ -116,6 +116,7 @@ function isValidImageURL(url) {
 }
 
 // custom middleware to check if user is logged in
+// "AUTHENTICATION" = checking they're who they say they are
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) { // isAuthenticated comes from passport
       return next(); // continue with what's NEXT "after" the middleware
@@ -124,6 +125,7 @@ function isLoggedIn(req, res, next) {
 }
 
 // custom middleware to check if user is logged in AND owns the campground (i.e. can edit/delete)
+// "AUTHORIZATION" = checking whether they're allowed to do an action
 function checkCampgroundOwnership(req, res, next) {
     // check if user logged in
     if (!req.isAuthenticated()) {
