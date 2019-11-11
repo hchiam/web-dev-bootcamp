@@ -57,6 +57,33 @@ router.post('/', isLoggedIn, (req, res) => { // '/campgrounds/:id/comments/'
   });
 });
 
+// EDIT
+    // NOTE: app.js uses '/campgrounds/:id/comments' to prefix comment routes
+    // AVOID: '/campgrounds/:id/comments/:id/edit' --> 2 :id's (one gets overridden)
+    // INSTEAD: rename :id -> :comment_id
+router.get('/:comment_id/edit', (req, res) => {
+    const campground_id = req.params.id; // this works since we have :id set in app.js
+    Comment.findById(req.params.comment_id, (err, foundComment) => {
+        if (err) {
+            res.redirect('back');
+        } else {
+            res.render('comments/edit', {campground_id, comment: foundComment});
+        }
+    });
+});
+
+// UPDATE
+router.put('/:comment_id', (req, res) => {
+    Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (err, updatedComment) => {
+        if (err) {
+            res.redirect('back');
+        } else {
+            const campground_id = req.params.id; // this works since we have :id set in app.js
+            res.redirect('/campgrounds/' + campground_id);
+        }
+    });
+});
+
 // custom middleware to check if user is logged in
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) { // isAuthenticated comes from passport
