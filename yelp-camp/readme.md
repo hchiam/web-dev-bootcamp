@@ -241,6 +241,15 @@ touch views/register.ejs
 touch views/login.ejs
 ```
 
+And then in `user.js` you can use passport with something like this:
+
+```js
+const passportLocalMongoose = require('passport-local-mongoose');
+...
+// use authentication! (add methods to user)
+userSchema.plugin(passportLocalMongoose);
+```
+
 ## Refactoring Routes into Separate Files
 
 Move routes from `app.js` into the `routes/...` files.
