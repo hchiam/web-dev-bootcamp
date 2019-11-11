@@ -3,7 +3,7 @@ Learning alongside https://www.udemy.com/the-web-developer-bootcamp
 
 Just one of the things I'm learning: https://github.com/hchiam/learning
 
-## Node.js and Express.js demos:
+## Node.js and Express.js demos
 
 Some setup I did (you don't have to do this to use this repo):
 ```bash
