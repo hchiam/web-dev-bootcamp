@@ -58,6 +58,7 @@ app.use((req, res, next) => {
     // i.e. automatically add currentUser parameter to the object when do res.render,
     // i.e. no need to explicity code "currentUser: req.user" in res.render('campgrounds/index', {campgrounds, currentUser: req.user});
     res.locals.currentUser = req.user; // req.user comes from passport.js
+    res.locals.message = req.flash('error'); // so message variable is available on HTML templates
     next(); // use whatever's NEXT after this "middleware"
 });
 
