@@ -302,6 +302,21 @@ const app = express();
 app.use(flash());
 ```
 
+And then enable the flash message:
+
+```js
+req.flash('error', 'Please log in first'); // set up before redirect
+res.redirect('/login'); // for example
+```
+
+And then actually pass the flash message to the HTML:
+
+```js
+res.render('login', {message: req.flash('error')})
+```
+
+**Note**: Make sure to do `app.use(flash());` *before* your `passport` configuration in `app.js`.
+
 **Note**: It's a good idea to have `express-session` set up if you're not already using it or "cookieParser".
 
 ```js

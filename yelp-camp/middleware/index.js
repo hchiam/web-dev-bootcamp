@@ -12,6 +12,7 @@ middlewareObject.isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) { // isAuthenticated comes from passport
     return next(); // continue with what's NEXT "after" the middleware
   }
+  req.flash('error', 'Please log in first');
   res.redirect('/login'); // otherwise do NOT continue with what's next
 };
 
