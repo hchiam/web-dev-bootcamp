@@ -259,3 +259,11 @@ touch routes/index.js
 touch routes/campgrounds.js
 touch routes/comments.js
 ```
+
+## Use `method-override` to enable UPDATE and DESTROY anmes
+
+Just like how it's used to enable PUT and DELETE verbs in [`app.js` in the RESTful example](https://github.com/hchiam/web-dev-bootcamp/blob/master/demo/RESTfulBlogApp/app.js).
+
+```bash
+npm install method-override --save
+```
