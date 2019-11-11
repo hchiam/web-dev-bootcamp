@@ -1,6 +1,7 @@
 const express = require('express');
 const isAnImageUrl = require('is-an-image-url');
 const Campground = require('../models/campground');
+const middleware = require('../middleware'); // ../middleware/index.js
 const Comment = require('../models/comment');
 const router = express.Router();
 
@@ -16,12 +17,12 @@ router.get('/', (req, res) => { // '/campgrounds'
 });
 
 // NEW (still get because get page) - show form to create campground
-router.get('/new', isLoggedIn, (req, res) => { // '/campgrounds/new'
+router.get('/new', middleware.isLoggedIn, (req, res) => { // '/campgrounds/new'
   res.render('campgrounds/new'); // views/campgrounds/new.ejs
 });
 
 // CREATE
-router.post('/', isLoggedIn, (req, res) => { // '/campgrounds'
+router.post('/', middleware.isLoggedIn, (req, res) => { // '/campgrounds'
   // get data from form
   const name = req.body.name;
   let image = req.body.image;
@@ -65,14 +66,14 @@ router.get('/:id', (req, res) => { // '/campgrounds/:id'
 });
 
 // EDIT (need to show edit form)
-router.get('/:id/edit', checkCampgroundOwnership, (req, res) => {
+router.get('/:id/edit', middleware.checkCampgroundOwnership, (req, res) => {
     Campground.findById(req.params.id, (err, foundCampground) => {
         res.render('campgrounds/edit', {campground: foundCampground}); // /views/campgrounds/edit.ejs
     });
 });
 
 // UPDATE (actually edit the data)
-router.put('/:id', checkCampgroundOwnership, (req, res) => {
+router.put('/:id', middleware.checkCampgroundOwnership, (req, res) => {
     // find and update correct campground
     // redirect somewhere (show page)
     // (instead of find by id and then update)
@@ -88,7 +89,7 @@ router.put('/:id', checkCampgroundOwnership, (req, res) => {
 });
 
 // DESTROY
-router.delete('/:id', checkCampgroundOwnership, (req, res) => {
+router.delete('/:id', middleware.checkCampgroundOwnership, (req, res) => {
     Campground.findByIdAndDelete(req.params.id, (err, removedCampground) => {
         if (err) {
             res.redirect('/campgrounds');
@@ -113,39 +114,6 @@ function isValidImageURL(url) {
             return false;
         }
     });
-}
-
-// custom middleware to check if user is logged in
-// "AUTHENTICATION" = checking they're who they say they are
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) { // isAuthenticated comes from passport
-      return next(); // continue with what's NEXT "after" the middleware
-  }
-  res.redirect('/login'); // otherwise do NOT continue with what's next
-}
-
-// custom middleware to check if user is logged in AND owns the campground (i.e. can edit/delete)
-// "AUTHORIZATION" = checking whether they're allowed to do an action
-function checkCampgroundOwnership(req, res, next) {
-    // check if user logged in
-    if (!req.isAuthenticated()) {
-        res.redirect('back'); // special meaning: go back to wherever the user was last
-    } else {
-        Campground.findById(req.params.id, (err, foundCampground) => {
-            if (err) {
-                res.redirect('back'); // special meaning: go back to wherever the user was last
-            } else {
-                // check if user owns the campground
-                if (!foundCampground.author.id.equals(req.user._id)) {
-                    // .equals and CANNOT use foundCampground.author.id === req.user._id because one is ObjectId, one is string
-                    res.redirect('back'); // special meaning: go back to wherever the user was last
-                } else {
-                    // res.render('campgrounds/edit', {campground: foundCampground}); // /views/campgrounds/edit.ejs
-                    next(); // continue with what's NEXT "after" the middleware
-                }
-            }
-        }); 
-    }
 }
 
 module.exports = router;

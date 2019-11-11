@@ -1,10 +1,11 @@
 const express = require('express');
 const Campground = require('../models/campground');
 const Comment = require('../models/comment');
+const middleware = require('../middleware'); // ../middleware/index.js
 const router = express.Router({mergeParams: true}); // NEED THIS to get :id when using URL shortener in main app.js
 
 // NEW comment
-router.get('/new', isLoggedIn, (req, res) => { // '/campgrounds/:id/comments/new'
+router.get('/new', middleware.isLoggedIn, (req, res) => { // '/campgrounds/:id/comments/new'
   /** 
    * NOTE: the middleware function isLoggedIn(req, res, next) 
    * gets processed first before the code decides whether to enter this callback:
@@ -22,7 +23,7 @@ router.get('/new', isLoggedIn, (req, res) => { // '/campgrounds/:id/comments/new
 });
 
 // CREATE comment
-router.post('/', isLoggedIn, (req, res) => { // '/campgrounds/:id/comments/'
+router.post('/', middleware.isLoggedIn, (req, res) => { // '/campgrounds/:id/comments/'
   /** 
    * NOTE: the middleware function isLoggedIn(req, res, next) 
    * gets processed first before the code decides whether to enter this callback:
@@ -61,7 +62,7 @@ router.post('/', isLoggedIn, (req, res) => { // '/campgrounds/:id/comments/'
     // NOTE: app.js uses '/campgrounds/:id/comments' to prefix comment routes
     // AVOID: '/campgrounds/:id/comments/:id/edit' --> 2 :id's (one gets overridden)
     // INSTEAD: rename :id -> :comment_id
-router.get('/:comment_id/edit', checkCommentOwnership, (req, res) => {
+router.get('/:comment_id/edit', middleware.checkCommentOwnership, (req, res) => {
     const campground_id = req.params.id; // this works since we have :id set in app.js
     Comment.findById(req.params.comment_id, (err, foundComment) => {
         if (err) {
@@ -73,7 +74,7 @@ router.get('/:comment_id/edit', checkCommentOwnership, (req, res) => {
 });
 
 // UPDATE
-router.put('/:comment_id', checkCommentOwnership, (req, res) => {
+router.put('/:comment_id', middleware.checkCommentOwnership, (req, res) => {
     Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, (err, updatedComment) => {
         if (err) {
             res.redirect('back');
@@ -85,7 +86,7 @@ router.put('/:comment_id', checkCommentOwnership, (req, res) => {
 });
 
 // DESTROY
-router.delete('/:comment_id', checkCommentOwnership, (req, res) => {
+router.delete('/:comment_id', middleware.checkCommentOwnership, (req, res) => {
     Comment.findByIdAndDelete(req.params.comment_id, (err) => {
         if (err) {
             res.redirect('back');
@@ -95,38 +96,5 @@ router.delete('/:comment_id', checkCommentOwnership, (req, res) => {
         }
     });
 });
-
-// custom middleware to check if user is logged in
-// "AUTHENTICATION" = checking they're who they say they are
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) { // isAuthenticated comes from passport
-      return next(); // continue with what's NEXT "after" the middleware
-  }
-  res.redirect('/login'); // otherwise do NOT continue with what's next
-}
-
-
-// custom middleware to check if user is logged in AND owns the comment (i.e. can edit/delete)
-// "AUTHORIZATION" = checking whether they're allowed to do an action
-function checkCommentOwnership(req, res, next) {
-    // check if user logged in
-    if (!req.isAuthenticated()) {
-        res.redirect('back'); // special meaning: go back to wherever the user was last
-    } else {
-        Comment.findById(req.params.comment_id, (err, foundComment) => {
-            if (err) {
-                res.redirect('back'); // special meaning: go back to wherever the user was last
-            } else {
-                // check if user owns the comment
-                if (!foundComment.author.id.equals(req.user._id)) {
-                    // .equals and CANNOT use foundComment.author.id === req.user._id because one is ObjectId, one is string
-                    res.redirect('back'); // special meaning: go back to wherever the user was last
-                } else {
-                    next(); // continue with what's NEXT "after" the middleware
-                }
-            }
-        }); 
-    }
-}
 
 module.exports = router;

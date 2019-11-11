@@ -276,3 +276,12 @@ const methodOverride = require('method-override');
 app.use(methodOverride('_method', ... )); // to enable HTML form to actually use PUT or DELETE by looking for ?_method=...
 ...
 ```
+
+## Refactoring Middleware
+
+Move the custom middleware functions to a separate file(s) and make the routes .js files DRY-er:
+
+```bash
+mkdir middleware
+touch middleware/index.js
+```
