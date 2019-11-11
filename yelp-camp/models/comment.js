@@ -6,7 +6,7 @@ const commentSchema = new mongoose.Schema({
   author: {
     id: { // comment.author.id = req.user._id
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "User", // references the other model
     },
     username: String, // comment.author.username = req.user.username
   },
