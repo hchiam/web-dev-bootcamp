@@ -1,6 +1,7 @@
 const express = require('express');
 const isAnImageUrl = require('is-an-image-url');
 const Campground = require('../models/campground');
+const Comment = require('../models/comment');
 const router = express.Router();
 
 // INDEX - show all campgrounds
@@ -92,11 +93,18 @@ router.put('/:id', (req, res) => {
 
 // DESTROY
 router.delete('/:id', (req, res) => {
-    Campground.findByIdAndDelete(req.params.id, (err) => {
+    Campground.findByIdAndDelete(req.params.id, (err, removedCampground) => {
         if (err) {
             res.redirect('/campgrounds');
         } else {
-            res.redirect('/campgrounds');
+            // also delete comments associated with that campground:
+            Comment.deleteMany( {_id: { $in: removedCampground.comments } }, (err) => {
+                if (err) {
+                    res.redirect('/campgrounds');
+                } else {
+                    res.redirect('/campgrounds');
+                }
+            });
         }
     });
 });
