@@ -135,7 +135,8 @@ function checkCampgroundOwnership(req, res, next) {
             if (err) {
                 res.redirect('back'); // special meaning: go back to wherever the user was last
             } else {
-                if (!foundCampground.author.id.equals(req.user._id)) { // check if user owns the campground
+                // check if user owns the campground
+                if (!foundCampground.author.id.equals(req.user._id)) {
                     // .equals and CANNOT use foundCampground.author.id === req.user._id because one is ObjectId, one is string
                     res.redirect('back'); // special meaning: go back to wherever the user was last
                 } else {
