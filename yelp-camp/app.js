@@ -50,7 +50,7 @@ passport.use(new LocalStrategy(User.authenticate())); // User uses passport-loca
 passport.serializeUser(User.serializeUser()); // User uses passport-local-mongoose
 passport.deserializeUser(User.deserializeUser()); // User uses passport-local-mongoose
 
-// set up currentUser on every route: (which all HTML templates can then use)
+// set up currentUser on every route: (which all HTML templates can then use: e.g. currentUser._id)
 app.use((req, res, next) => {
     // set a custom variable currentUser (to be used by all our HTML templates)
     // i.e. automatically add currentUser parameter to the object when do res.render,
