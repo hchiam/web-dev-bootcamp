@@ -63,6 +63,34 @@ router.get('/:id', (req, res) => { // '/campgrounds/:id'
   );
 });
 
+// EDIT (need to show edit form)
+router.get('/:id/edit', (req, res) => {
+    Campground.findById(req.params.id, (err, campground) => {
+        if (err) {
+            res.redirect('/campgrounds');
+        } else {
+            res.render('campgrounds/edit', {campground}); // /views/campgrounds/edit.ejs
+        }
+    });
+});
+
+// UPDATE (actually edit the data)
+router.put('/:id', (req, res) => {
+    // find and update correct campground
+    // redirect somewhere (show page)
+    // (instead of find by id and then update)
+    // and (req.body.campground and name="campground[description]" instead of var data = {name: req.params.name, ...})
+    Campground.findByIdAndUpdate(req.params.id, req.body.campground, (err, updatedCampground) => {
+        if (err) {
+            res.redirect('/campgrounds');
+        } else {
+            // redirect to the SHOW page
+            res.redirect('/campgrounds/' + req.params.id);
+        }
+    });
+});
+
+
 function isValidImageURL(url) {
     isAnImageUrl(url, function(isAnImageResult) {
         if (isAnImageResult) {

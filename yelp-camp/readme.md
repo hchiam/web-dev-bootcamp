@@ -260,10 +260,19 @@ touch routes/campgrounds.js
 touch routes/comments.js
 ```
 
-## Use `method-override` to enable UPDATE and DESTROY anmes
+## Use `method-override` to enable UPDATE and DESTROY names
 
 Just like how it's used to enable PUT and DELETE verbs in [`app.js` in the RESTful example](https://github.com/hchiam/web-dev-bootcamp/blob/master/demo/RESTfulBlogApp/app.js).
 
 ```bash
 npm install method-override --save
+```
+
+Then in `app.js` (and not in `campgrounds.js`, since we're already pointing to campgrounds using `const campgroundRoutes = require('./routes/campgrounds');`):
+
+```js
+const methodOverride = require('method-override');
+...
+app.use(methodOverride('_method', ... )); // to enable HTML form to actually use PUT or DELETE by looking for ?_method=...
+...
 ```

@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const expressSession = require('express-session');
+const methodOverride = require('method-override');
 
 // import a custom function that has a private seeds array
 const seedDB = require('./seed');
@@ -32,6 +33,7 @@ mongoose.connect('mongodb://localhost/yelp_camp', {useNewUrlParser: true, useUni
 app.use(bodyParser.urlencoded({encoded:true, extended:true}));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public')); // __dirname = directory script lives in
+app.use(methodOverride('_method')); // to enable HTML form to actually use PUT or DELETE by looking for ?_method=...
 seedDB(); // (function imported from seed.js)
 
 // PASSPORT CONFIGURATION
