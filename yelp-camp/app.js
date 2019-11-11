@@ -52,13 +52,14 @@ passport.use(new LocalStrategy(User.authenticate())); // User uses passport-loca
 passport.serializeUser(User.serializeUser()); // User uses passport-local-mongoose
 passport.deserializeUser(User.deserializeUser()); // User uses passport-local-mongoose
 
-// set up currentUser on every route: (which all HTML templates can then use: e.g. currentUser._id)
+// set up currentUser and other variables on every route: (which all HTML templates can then use: e.g. currentUser._id)
 app.use((req, res, next) => {
     // set a custom variable currentUser (to be used by all our HTML templates)
     // i.e. automatically add currentUser parameter to the object when do res.render,
     // i.e. no need to explicity code "currentUser: req.user" in res.render('campgrounds/index', {campgrounds, currentUser: req.user});
     res.locals.currentUser = req.user; // req.user comes from passport.js
-    res.locals.message = req.flash('error'); // so message variable is available on HTML templates
+    res.locals.error = req.flash('error'); // so error variable is available on HTML templates (header.ejs)
+    res.locals.success = req.flash('success'); // so success variable is available on HTML templates (header.ejs)
     next(); // use whatever's NEXT after this "middleware"
 });
 

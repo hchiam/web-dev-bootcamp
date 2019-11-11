@@ -29,11 +29,13 @@ router.post('/register', (req, res) => {
   User.register(newUser, req.body.password, (err, user) => {
       if (err) {
           console.log(err);
+          req.flash('error', err.message);
           return res.render('register');
       }
       // do THE ACTUAL LOGIN and use the serializeUser method specified above
       // with ('local') strategy (other options would be google/facebook/twitter/etc.)
       passport.authenticate('local')(req, res, () => {
+          req.flash('success', 'Welcome to YelpCamp ' + user.username);
           // once user logged in, can now do something else
           res.redirect('/campgrounds');
       });
@@ -56,15 +58,8 @@ router.post('/login', passport.authenticate('local', { // using passport as midd
 // logout:
 router.get('/logout', (req, res) => {
   req.logout(); // signal to passport to "forget" user login data from session
+  req.flash('success', 'Logged out');
   res.redirect('/campgrounds');
 });
-
-// custom middleware to check if user is logged in
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) { // isAuthenticated comes from passport
-      return next(); // continue with what's NEXT "after" the middleware
-  }
-  res.redirect('/login'); // otherwise do NOT continue with what's next
-}
 
 module.exports = router;

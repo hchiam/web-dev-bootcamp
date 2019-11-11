@@ -44,13 +44,15 @@ router.post('/', middleware.isLoggedIn, (req, res) => { // '/campgrounds/:id/com
       } else {
           Comment.create(req.body.comment, (err, comment) => { // 2)
               if (err) {
-                  console.log(err);
+                req.flash('error', 'Something went wrong');
+                console.log(err);
               } else {
                 comment.author.id = req.user._id; // 3) (req.user is available since we used isLoggedIn)
                 comment.author.username = req.user.username; // 3) (req.user is available since we used isLoggedIn)
                 comment.save(); // 4)
                 campground.comments.push(comment); // 5)
                 campground.save(); // 6)
+                req.flash('success', 'Successfully added comment');
                 res.redirect('/campgrounds/' + campground._id); // 7)
               }
           });
@@ -92,6 +94,7 @@ router.delete('/:comment_id', middleware.checkCommentOwnership, (req, res) => {
             res.redirect('back');
         } else {
             const campground_id = req.params.id; // this works since we have :id set in app.js
+            req.flash('success', 'Comment deleted');
             res.redirect('/campgrounds/' + campground_id);
         }
     });

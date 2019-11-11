@@ -305,14 +305,24 @@ app.use(flash());
 And then enable the flash message:
 
 ```js
-req.flash('error', 'Please log in first'); // set up before redirect
-res.redirect('/login'); // for example
+req.flash('message', 'Please log in first'); // set up before redirect
+// or: req.flash('error', 'Please log in first'); // set up before redirect
+res.redirect('/login');
 ```
 
 And then actually pass the flash message to the HTML:
 
 ```js
 res.render('login', {message: req.flash('error')})
+
+// or inside /yelp-camp/app.js:
+
+app.use((req, res, next) => {
+    // so these variables are available on HTML templates:
+    res.locals.error = req.flash('error');
+    res.locals.success = req.flash('success');
+    next();
+});
 ```
 
 **Note**: Make sure to do `app.use(flash());` *before* your `passport` configuration in `app.js`.
@@ -328,4 +338,6 @@ app.use(expressSession({
 }));
 ```
 
-Bootstrap also has built-in styles for flash messages.
+Bootstrap also has built-in styles for alerts: `alert`, `alert-success` `alert-danger`, etc.
+
+Error bug fix: <https://www.youtube.com/watch?v=eDWPJAzlBfM> and <https://www.udemy.com/course/the-web-developer-bootcamp/learn/lecture/6142122#questions/2758358>
