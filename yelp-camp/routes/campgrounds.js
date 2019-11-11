@@ -65,18 +65,14 @@ router.get('/:id', (req, res) => { // '/campgrounds/:id'
 });
 
 // EDIT (need to show edit form)
-router.get('/:id/edit', (req, res) => {
-    Campground.findById(req.params.id, (err, campground) => {
-        if (err) {
-            res.redirect('/campgrounds');
-        } else {
-            res.render('campgrounds/edit', {campground}); // /views/campgrounds/edit.ejs
-        }
+router.get('/:id/edit', checkCampgroundOwnership, (req, res) => {
+    Campground.findById(req.params.id, (err, foundCampground) => {
+        res.render('campgrounds/edit', {campground: foundCampground}); // /views/campgrounds/edit.ejs
     });
 });
 
 // UPDATE (actually edit the data)
-router.put('/:id', (req, res) => {
+router.put('/:id', checkCampgroundOwnership, (req, res) => {
     // find and update correct campground
     // redirect somewhere (show page)
     // (instead of find by id and then update)
@@ -92,7 +88,7 @@ router.put('/:id', (req, res) => {
 });
 
 // DESTROY
-router.delete('/:id', (req, res) => {
+router.delete('/:id', checkCampgroundOwnership, (req, res) => {
     Campground.findByIdAndDelete(req.params.id, (err, removedCampground) => {
         if (err) {
             res.redirect('/campgrounds');
@@ -125,6 +121,28 @@ function isLoggedIn(req, res, next) {
       return next(); // continue with what's NEXT "after" the middleware
   }
   res.redirect('/login'); // otherwise do NOT continue with what's next
+}
+
+// custom middleware to check if user is logged in AND owns the campground (i.e. can edit/delete)
+function checkCampgroundOwnership(req, res, next) {
+    // check if user logged in
+    if (!req.isAuthenticated()) {
+        res.redirect('back'); // special meaning: go back to wherever the user was last
+    } else {
+        Campground.findById(req.params.id, (err, foundCampground) => {
+            if (err) {
+                res.redirect('back'); // special meaning: go back to wherever the user was last
+            } else {
+                if (!foundCampground.author.id.equals(req.user._id)) { // check if user owns the campground
+                    // .equals and CANNOT use foundCampground.author.id === req.user._id because one is ObjectId, one is string
+                    res.redirect('back'); // special meaning: go back to wherever the user was last
+                } else {
+                    // res.render('campgrounds/edit', {campground: foundCampground}); // /views/campgrounds/edit.ejs
+                    next(); // continue with what's NEXT "after" the middleware
+                }
+            }
+        }); 
+    }
 }
 
 module.exports = router;
