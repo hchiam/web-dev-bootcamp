@@ -341,3 +341,7 @@ app.use(expressSession({
 Bootstrap also has built-in styles for alerts: `alert`, `alert-success` `alert-danger`, etc.
 
 Error bug fix: <https://www.youtube.com/watch?v=eDWPJAzlBfM> and <https://www.udemy.com/course/the-web-developer-bootcamp/learn/lecture/6142122#questions/2758358>
+
+## Refactoring Landing Page
+
+<https://github.com/nax3t/background-slider>
