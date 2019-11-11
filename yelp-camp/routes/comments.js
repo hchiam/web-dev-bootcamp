@@ -84,6 +84,18 @@ router.put('/:comment_id', (req, res) => {
     });
 });
 
+// DESTROY
+router.delete('/:comment_id', (req, res) => {
+    Comment.findByIdAndDelete(req.params.comment_id, (err) => {
+        if (err) {
+            res.redirect('back');
+        } else {
+            const campground_id = req.params.id; // this works since we have :id set in app.js
+            res.redirect('/campgrounds/' + campground_id);
+        }
+    });
+});
+
 // custom middleware to check if user is logged in
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) { // isAuthenticated comes from passport
