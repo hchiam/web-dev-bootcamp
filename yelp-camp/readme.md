@@ -345,3 +345,11 @@ Error bug fix: <https://www.youtube.com/watch?v=eDWPJAzlBfM> and <https://www.ud
 ## Refactoring Landing Page
 
 <https://github.com/nax3t/background-slider>
+
+## Dynamic Price Feature
+
+<https://github.com/nax3t/dynamic-price>
+
+## Even More Refactoring
+
+<https://github.com/nax3t/yelp-camp-refactored>

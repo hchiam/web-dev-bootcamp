@@ -25,13 +25,14 @@ router.get('/new', middleware.isLoggedIn, (req, res) => { // '/campgrounds/new'
 router.post('/', middleware.isLoggedIn, (req, res) => { // '/campgrounds'
   // get data from form
   const name = req.body.name;
+  const price = req.body.price;
   let image = req.body.image;
   const description = req.body.description;
   const author = {id: req.user._id, username: req.user.username}; // (req.user is available since we used isLoggedIn)
   
   if (!isValidImageURL(image)) image = '';
 
-  const newCampground = {name, image, description, author};
+  const newCampground = {name, price, image, description, author};
   console.log(newCampground);
   
   // add campground to DB
