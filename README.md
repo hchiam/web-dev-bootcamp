@@ -136,6 +136,16 @@ Why: Modularize the JS code into separate files, e.g. separate files for models 
 
 **AUTHORIZATION** = checking whether they're allowed to do an action. Example: our custom middleware `checkCampgroundOwnership`.
 
+## Git
+
+### How to Revert (Uncommon but Hard to Find a Good Answer)
+
+```bash
+# replace 0766c053 with a commit number
+git revert --no-commit 0766c053..HEAD
+git commit
+```
+
 ## Random Notes
 
 When searching for packages on Google for tutorials/snippets, get the most-up-to-date APIs by adding "Express 4" to the search string.
