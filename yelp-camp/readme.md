@@ -354,4 +354,6 @@ Error bug fix: <https://www.youtube.com/watch?v=eDWPJAzlBfM> and <https://www.ud
 
 <https://github.com/nax3t/yelp-camp-refactored>
 
-Example: [fuzzy search](https://www.youtube.com/watch?v=9_lKMTXVk64)
+For example, [fuzzy search](https://www.youtube.com/watch?v=9_lKMTXVk64):
+
+* Example code changes: [example repo with commit diffs for adding search with AJAX](https://github.com/nax3t/yelp-camp-refactored/commit/cbcbcf7669e54ca1818471864b64baf42c1fc769) (see [`/public/scripts/search.js` input $.get AJAX call](https://github.com/nax3t/yelp-camp-refactored/blob/master/public/scripts/search.js) and [`/routes/campgrounds.js` SHOW route and `escapeRegex`](https://github.com/nax3t/yelp-camp-refactored/blob/master/routes/campgrounds.js)).
