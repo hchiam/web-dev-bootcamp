@@ -40,6 +40,16 @@ body {
   animation: imageAnimation 50s linear infinite; 
 }
 
+/*
+0s    10s   20s   30s   40s   50s
+000111000 = image 1 opacity
+      000111000 = image 2 opacity
+            000111000 = image 3 opacity
+                  000111000 = image 4 opacity
+000                     000111 = image 5 opacity
+0%    20%   40%   60%   80%   100%
+*/
+
 .slideshow li:nth-child(1) { 
   background-image: url(http://i.imgur.com/K3mPv14.jpg) 
 }
