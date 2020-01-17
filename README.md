@@ -218,3 +218,4 @@ res.redirect('back'); // special meaning: go back to wherever the user was last
 - [service workers](https://github.com/hchiam/learning-service-workers) for things like offline website viewing
 - [Electron](https://github.com/hchiam/electron-quick-start) for building desktop apps using web technologies (JS/HTML/CSS)
 - [Lodash](https://github.com/hchiam/learning-lodash)
+- [React](https://github.com/hchiam/learning-reactjs)
