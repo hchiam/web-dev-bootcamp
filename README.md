@@ -196,3 +196,25 @@ app.use(express.static(__dirname + '/public')); // __dirname = directory script 
 ```js
 res.redirect('back'); // special meaning: go back to wherever the user was last
 ```
+
+## Other related [things I've been learning](https://github.com/hchiam/learning) beyond this course
+
+### Tools to build production websites, and build them faster
+
+- [yarn](https://github.com/hchiam/learning-yarn) and npm scripts like those found [in some of my projects](https://github.com/hchiam/eslint-and-jest)
+- [Parcel.js](https://github.com/hchiam/learning-parcel) web app bundler
+- [Yeoman project generator](https://github.com/hchiam/generator-hchiam-learning)
+- [Gatsby.js](https://github.com/hchiam/learning-gatsby) static site generator
+
+### Tools to test websites faster for better quality
+
+- [Jest](https://github.com/hchiam/learning-jest) for unit tests
+- [mocha and chai](https://github.com/hchiam/boilerplate-mochachai) for both unit tests and functional tests of a website
+- Using [Selenium](https://github.com/hchiam/selenium-travis) and [Travis CI](https://github.com/hchiam/travistest) for continuous integration (automated build tests)
+- [Lighthouse CI](https://github.com/hchiam/learning-lighthouse-ci)
+
+### Tools for other superpowers
+
+- [service workers](https://github.com/hchiam/learning-service-workers) for things like offline website viewing
+- [Electron](https://github.com/hchiam/electron-quick-start) for building desktop apps using web technologies (JS/HTML/CSS)
+- [Lodash](https://github.com/hchiam/learning-lodash)
