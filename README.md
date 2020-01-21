@@ -205,6 +205,7 @@ res.redirect('back'); // special meaning: go back to wherever the user was last
 - [Parcel.js](https://github.com/hchiam/learning-parcel) web app bundler
 - [Yeoman project generator](https://github.com/hchiam/generator-hchiam-learning)
 - [Gatsby.js](https://github.com/hchiam/learning-gatsby) static site generator
+- [expo CLI](https://github.com/hchiam/learning-expo-cli)
 
 ### Tools to test websites faster for better quality
 
@@ -219,3 +220,4 @@ res.redirect('back'); // special meaning: go back to wherever the user was last
 - [Electron](https://github.com/hchiam/electron-quick-start) for building desktop apps using web technologies (JS/HTML/CSS)
 - [Lodash](https://github.com/hchiam/learning-lodash)
 - [React](https://github.com/hchiam/learning-reactjs)
+- [Redux](https://github.com/hchiam/learning-redux)
