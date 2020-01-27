@@ -219,5 +219,5 @@ res.redirect('back'); // special meaning: go back to wherever the user was last
 - [service workers](https://github.com/hchiam/learning-service-workers) for things like offline website viewing
 - [Electron](https://github.com/hchiam/electron-quick-start) for building desktop apps using web technologies (JS/HTML/CSS)
 - [Lodash](https://github.com/hchiam/learning-lodash)
-- [React](https://github.com/hchiam/learning-reactjs)
+- [React](https://github.com/hchiam/learning-reactjs) (via a [robot-powered training repo](https://github.com/hchiam/intro-react) and a [freeCodeCamp course](https://www.freecodecamp.org/learn/front-end-libraries/react/))
 - [Redux](https://github.com/hchiam/learning-redux) and [a helpful example of adding data to redux state container](https://github.com/hchiam/react-jexcel-redux/commit/90db044627780ed6262f5e29bb61a24390a4d4b3).
