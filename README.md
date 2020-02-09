@@ -221,3 +221,4 @@ res.redirect('back'); // special meaning: go back to wherever the user was last
 - [Lodash](https://github.com/hchiam/learning-lodash)
 - [React](https://github.com/hchiam/learning-reactjs) (via a [robot-powered training repo](https://github.com/hchiam/intro-react) and a [freeCodeCamp course](https://www.freecodecamp.org/learn/front-end-libraries/react/))
 - [Redux](https://github.com/hchiam/learning-redux) and [a helpful example of adding data to redux state container](https://github.com/hchiam/react-jexcel-redux/commit/90db044627780ed6262f5e29bb61a24390a4d4b3).
+- [dependency-cruiser](https://github.com/hchiam/learning-dependency-cruiser) for viewing a dependency graph of your project
