@@ -209,7 +209,7 @@ res.redirect('back'); // special meaning: go back to wherever the user was last
 
 ### Tools to test websites faster for better quality
 
-- [Cypress](https://github.com/hchiam/learning-cypress) for e2e in-browser tests
+- [Cypress](https://github.com/hchiam/learning-cypress) for e2e in-browser tests (i.e., simulating user actions)
 - [Jest](https://github.com/hchiam/learning-jest) for unit tests
 - [mocha and chai](https://github.com/hchiam/boilerplate-mochachai) for both unit tests and functional tests of a website
 - Using [Selenium](https://github.com/hchiam/selenium-travis) and [Travis CI](https://github.com/hchiam/travistest) for continuous integration (automated build tests)
