@@ -225,3 +225,4 @@ res.redirect('back'); // special meaning: go back to wherever the user was last
 - [Redux](https://github.com/hchiam/learning-redux) and [a helpful example of adding data to redux state container](https://github.com/hchiam/react-jexcel-redux/commit/90db044627780ed6262f5e29bb61a24390a4d4b3).
 - [dependency-cruiser](https://github.com/hchiam/learning-dependency-cruiser) for viewing a dependency graph of your project
 - [D3](https://github.com/hchiam/learning-d3) for data-driven documents (basically graphs but also fancy graphics).
+- [surge](https://github.com/hchiam/learning-surge) for quick, free, static web publishing.
