@@ -226,3 +226,4 @@ res.redirect('back'); // special meaning: go back to wherever the user was last
 - [dependency-cruiser](https://github.com/hchiam/learning-dependency-cruiser) for viewing a dependency graph of your project
 - [D3](https://github.com/hchiam/learning-d3) for data-driven documents (basically graphs but also fancy graphics).
 - [surge](https://github.com/hchiam/learning-surge) for quick, free, static web publishing.
+- [svelte](https://github.com/hchiam/learning-svelte) for less boilerplate but also smaller files in the browser.
